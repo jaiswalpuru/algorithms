@@ -16,6 +16,8 @@ func scanf(f string, args ...interface{})  { fmt.Fscanf(reader, f, args...) }
 
 func main() {
 
+	defer writer.Flush()
+
 	var t int
 	scanf("%d\n", &t)
 

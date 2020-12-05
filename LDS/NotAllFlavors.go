@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 )
 
@@ -15,6 +14,13 @@ var (
 func printf(f string, args ...interface{}) { fmt.Fprintf(writer, f, args...) }
 func scanf(f string, args ...interface{})  { fmt.Fscanf(reader, f, args...) }
 
+func max(a, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
+}
+
 func main() {
 
 	defer writer.Flush()
@@ -24,29 +30,44 @@ func main() {
 
 	for ; t > 0; t-- {
 
-		var n int
-		scanf("%d\n", &n)
+		var n, k int
+		scanf("%d %d\n", &n, &k)
 
-		var arr = make([][2]int, n)
+		arr := make([]int, n)
 
 		for i := 0; i < n; i++ {
+
 			if i == n-1 {
-				scanf("%d\n", &arr[i][0])
+				scanf("%d\n", &arr[i])
 				break
 			}
-			scanf("%d ", &arr[i][0])
+			scanf("%d ", &arr[i])
+
 		}
 
-		min := math.MaxInt64
-		res := 0
+		sumK, maxLen, t := 0, 1, 0
+		mp := make(map[int]int)
 
 		for i := 0; i < n; i++ {
-			min = int(math.Min(float64(min), float64(arr[i][0])))
-			res += min
+
+			if mp[arr[i]] == 0 {
+				sumK++
+			}
+			mp[arr[i]]++
+			if sumK < k {
+				maxLen = max(maxLen, i-t+1)
+			}
+
+			for sumK == k {
+				mp[arr[t]]--
+				if mp[arr[t]] == 0 {
+					sumK--
+				}
+				t++
+			}
 		}
 
-		fmt.Println(res)
+		printf("%d\n", maxLen)
 
 	}
-
 }

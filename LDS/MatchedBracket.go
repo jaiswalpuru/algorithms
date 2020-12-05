@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	reader = bufio.NewReader(os.Stdout)
-	writer = bufio.NewWriter(os.Stdin)
+	reader = bufio.NewReader(os.Stdin)
+	writer = bufio.NewWriter(os.Stdout)
 )
 
 func printf(f string, args ...interface{}) { fmt.Fprintf(writer, f, args...) }
