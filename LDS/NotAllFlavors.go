@@ -29,27 +29,23 @@ func main() {
 	scanf("%d\n", &t)
 
 	for ; t > 0; t-- {
-
 		var n, k int
 		scanf("%d %d\n", &n, &k)
 
 		arr := make([]int, n)
 
 		for i := 0; i < n; i++ {
-
 			if i == n-1 {
 				scanf("%d\n", &arr[i])
 				break
 			}
 			scanf("%d ", &arr[i])
-
 		}
 
 		sumK, maxLen, t := 0, 1, 0
 		mp := make(map[int]int)
 
 		for i := 0; i < n; i++ {
-
 			if mp[arr[i]] == 0 {
 				sumK++
 			}
@@ -57,7 +53,6 @@ func main() {
 			if sumK < k {
 				maxLen = max(maxLen, i-t+1)
 			}
-
 			for sumK == k {
 				mp[arr[t]]--
 				if mp[arr[t]] == 0 {
@@ -66,8 +61,6 @@ func main() {
 				t++
 			}
 		}
-
 		printf("%d\n", maxLen)
-
 	}
 }
