@@ -2,7 +2,7 @@ package gostlcode
 
 var ()
 
-//SLBSearch -> return the lower bound index using binary search
+//SLBSearch -> return the strictly lower bound index using binary search
 func SLBSearch(a []int, v, l, h int) int {
 
 	if len(a) == 0 {
