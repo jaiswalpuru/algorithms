@@ -1,1 +1,1 @@
-## CodeChef_DSA_LearningSeries
+## ALGO_DS
