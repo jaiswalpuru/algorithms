@@ -60,6 +60,21 @@ func gcd(a, b int64) int64 {
 	}
 }
 
+func maxInt(a, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
+}
+
+func reverseRune(s *[]rune) {
+	for i, j := 0, len(*s)-1; i < len(*s)/2; {
+		(*s)[i], (*s)[j] = (*s)[j], (*s)[i]
+		i++
+		j--
+	}
+}
+
 func pushBack(val int, arr *[]int) {
 	*arr = append(*arr, val)
 }
