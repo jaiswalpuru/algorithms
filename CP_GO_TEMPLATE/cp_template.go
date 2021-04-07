@@ -103,6 +103,27 @@ func addEdgeWeigts(u int, v Pair, graph *[][]Pair, gType GraphType) {
 	}
 }
 
+//shortest path in unweighted graph from the source vertex
+//s - > source node, nodes -> total number of nodes, distace 1-D array with -1 initally assigned to it
+func unweightedShortestPath(graph [][]int, s int, distance []int) {
+	queue := []int{s}
+	for i := 0; i < len(graph); i++ {
+		distance[i] = -1
+	}
+	//We can also keep an array for storing the path of the adjacent nodes
+	distance[s] = 0 //distance of source to source is 0
+	for len(queue) > 0 {
+		v := queue[0]
+		queue = queue[1:]
+		for i := 0; i < len(graph[v]); i++ {
+			if distance[graph[v][i]] == -1 {
+				distance[graph[v][i]] += distance[v] + 1
+				queue = append(queue, graph[v][i])
+			}
+		}
+	}
+}
+
 //argument is [i][j]int in which i represents the current node and arr[i] will contain a array of values through which it is connected
 func dfsUtil(curr int, graph [][]int, visited *[]bool, ordering *[]int) {
 	if !(*visited)[curr] {
