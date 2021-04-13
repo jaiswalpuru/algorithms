@@ -122,7 +122,6 @@ func Dijkstra(G Graph, source Vertex) (distance map[Vertex]int, previous map[Ver
 	}
 	for len(q.items) != 0 {
 		u := heap.Pop(q).(Vertex)
-		fmt.Println("here", u, q)
 		for _, v := range G.Neighbors(u) {
 			alt := distance[u] + G.Weight(u, v)
 			if alt < distance[v] {
