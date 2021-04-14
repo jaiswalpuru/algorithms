@@ -7,7 +7,7 @@ var (
 )
 
 func isValid(mat [][]int, x, y int) bool {
-	if (x <= ROW && y <= ROW) && mat[x][y] != 1 {
+	if (x <= ROW && y <= COL) && mat[x][y] != 1 {
 		return true
 	}
 	return false

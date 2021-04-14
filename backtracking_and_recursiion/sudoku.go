@@ -1,19 +1,5 @@
 package main
 
-var (
-	row  = make([][]int, 10)
-	col  = make([][]int, 10)
-	cell = make([][]int, 10)
-)
-
-func init() {
-	for i := 0; i < 10; i++ {
-		row[i] = make([]int, 10)
-		col[i] = make([]int, 10)
-		cell[i] = make([]int, 10)
-	}
-}
-
 func checkForEmptyCell(arr [9][9]int) (int, int) {
 	for i := 0; i < 10; i++ {
 		for j := 0; j < 10; j++ {
