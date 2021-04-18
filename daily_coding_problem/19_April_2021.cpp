@@ -44,12 +44,38 @@ void printList(XORList *head){
     XORList *prev = NULL;
     XORList *curr = head;
     XORList *next;
-    std::cout<<"XORlist data : ";
-    while (curr != NULL){
-        std::cout<<curr->data<<" ";
-        next  = XOR(prev,curr->both);
+    std :: cout << "XORlist data : ";
+    while (curr != NULL) {
+        std :: cout << curr->data << " ";
+        next = XOR(prev, curr->both);
         prev = curr;
         curr = next;
+    }
+    std :: cout << "\n";
+}
+
+//get -> return the value at specific index
+XORList* get(XORList *head, int index){
+    XORList* ans;
+    XORList* curr = head;
+    XORList* prev = NULL;
+    XORList* next;
+    if ( head == NULL ) {
+        std :: cout<<"xor list is empty\n";
+        return NULL;
+    }else {
+        while ( curr != NULL && index!=0 ) {
+            next = XOR(prev, curr->both);
+            prev = curr;
+            curr = next;
+            index--;
+        }
+        if (index == 0) {
+            return prev;
+        }else{
+            std :: cout<<"index out of bounds\n";
+            return NULL;
+        }
     }
 }
 
@@ -75,11 +101,19 @@ void add(XORList **head, int data){
 }
 
 int main(){
+
     XORList *head = NULL;
     add(&head,10);
     add(&head,20);
     add(&head,30);
     add(&head,40);
     printList(head);
+    
+    XORList *val = NULL;
+    val = get(head,4);
+    if (val != NULL){
+        std :: cout << "Value : "<<val->data<<"\n";
+    }
+
     return 0;
 }
