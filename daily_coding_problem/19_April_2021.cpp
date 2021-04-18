@@ -7,26 +7,6 @@
 // you can assume you have access to get_pointer and dereference_pointer
 // functions that converts between nodes and memory addresses.
 
-// https://stackoverflow.com/questions/47846206/bitwise-xor-on-address-in-golang
-// package main
-
-// import (
-// 	"fmt"
-// 	"unsafe"
-// )
-
-// type XORList struct {
-// 	data    interface{}
-// 	ptrDiff *XORList
-// }
-
-// func XOR(a, b *XORList) *XORList {
-// 	x := uintptr(unsafe.Pointer(a)) ^ uintptr(unsafe.Pointer(b))
-// 	y := (*XORList)(unsafe.Pointer(x))
-// 	return y
-// }
-//XORList cannot be implemented in go because the GC uses pointers to track memory
-//uintptr_t is a type which is used generally to do arithmetic on pointer types
 
 #include <iostream>
 
