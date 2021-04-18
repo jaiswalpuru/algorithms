@@ -56,7 +56,6 @@ void printList(XORList *head){
 
 //get -> return the value at specific index
 XORList* get(XORList *head, int index){
-    XORList* ans;
     XORList* curr = head;
     XORList* prev = NULL;
     XORList* next;
