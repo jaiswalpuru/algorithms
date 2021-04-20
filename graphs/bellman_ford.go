@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 )
 
 const (
@@ -89,6 +90,62 @@ func (rt Edges) Search(start string) (Vertices, error) {
 	return distances, nil
 }
 
-func main() {
+type testcase struct {
+	src, dest string
+	path      string
+}
 
+var tests = []*testcase{
+	{"Hyderabad", "Chennai", "Hyderabad 106,Bangalore 95,"},
+	{"Bangalore", "Mumbai", "Bangalore 95,Chennai 65,Canada 73,Pune 62,Amaravathi 92,"},
+	{"Delhi", "Chennai", "Delhi 121,"},
+}
+
+func main() {
+	fmt.Println("Bellman Ford")
+	for _, test := range tests {
+		rt := Edges{
+			{"Hyderabad", "Vijayawada", 117},
+			{"Vijayawada", "Vizag", 65},
+			{"Vizag", "Pune", 70},
+			{"Pune", "Amaravathi", 62},
+			{"Amaravathi", "Mumbai", 92},
+			{"Hyderabad", "Bangalore", 106},
+			{"Hyderabad", "Bangalore", 113},
+			{"Bangalore", "Chennai", 95},
+			{"Vijayawada", "Guntur", 24},
+			{"Guntur", "Chennai", 88},
+			{"Vizag", "Chennai", 94},
+			{"Chennai", "Canada", 65},
+			{"Canada", "Pune", 73},
+			{"Chennai", "Delhi", 121},
+			{"Canada", "Delhi", 103},
+		}
+		for _, r := range rt {
+			// Add reversed edges.
+			rt = append(rt, &Edge{From: r.To, To: r.From, Distance: r.Distance})
+		}
+		//fmt.Println(rt)
+		paths, err := rt.Search(test.src)
+		if err != nil {
+			fmt.Println(err)
+		}
+		//fmt.Println(paths)
+		all, err := paths.ShortestPath(test.src, test.dest)
+		if err != nil {
+			fmt.Println(err)
+		}
+		//fmt.Println(all)
+		var prev int
+		var s string
+		for i := len(all) - 1; i >= 0; i-- {
+			s += fmt.Sprintf("%s %d,", all[i].From, all[i].Distance-prev)
+			prev = all[i].Distance
+		}
+
+		if test.path != s {
+			fmt.Printf("shortest path does not match, got %q want %q", s, test.path)
+		}
+		fmt.Println(s)
+	}
 }
