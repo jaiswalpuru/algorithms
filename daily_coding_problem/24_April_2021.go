@@ -11,7 +11,7 @@ type trie struct {
 	letter   rune
 	children []*trie
 	isLeaf   bool
-	metaData map[string]string
+	metaData string
 }
 
 func newTrie() *trie {
@@ -19,7 +19,7 @@ func newTrie() *trie {
 	nt := &trie{}
 	nt.children = make([]*trie, 0)
 	nt.letter = '#'
-	nt.metaData = make(map[string]string)
+	nt.metaData = ""
 	return nt
 }
 
@@ -57,7 +57,7 @@ func (t *trie) addWord(word, m string) *trie {
 		i++
 		if i == n {
 			node.isLeaf = true
-			node.metaData[word] = m
+			node.metaData = m
 		}
 	}
 
@@ -86,22 +86,25 @@ func (t *trie) find(word string) (*trie, string) {
 	if node == nil {
 		return nil, ""
 	} else {
-		return node, node.metaData[word]
+		return node, node.metaData
 	}
 }
 
-func elements(t *trie, str *string) {
-	if t.isLeaf {
-		*str += string(t.letter)
-		return
+var words = make([]string, 0)
+
+func elements(t *trie) {
+	for _, val := range t.children {
+		if val.isLeaf {
+			words = append(words, val.metaData)
+		} else {
+			elements(val)
+		}
 	}
-	*str += string(t.letter)
-	elements(t.children[0], str)
 }
 
 func main() {
 
-	queryString := "de"
+	queryString := "d"
 	arr := []string{"dog", "deer", "deal"}
 
 	nt := newTrie()
@@ -114,12 +117,19 @@ func main() {
 
 	//what need to be done here is after receiving node we need to process all the words which are accessible
 	//from this node
-	words := []string{}
-	for _, val := range node.children {
-		str := ""
-		elements(val, &str)
-		words = append(words, queryString+str)
-	}
+	if node != nil {
 
+		if node.isLeaf {
+			words = append(words, node.metaData)
+		}
+
+		for _, val := range node.children {
+			if val.isLeaf {
+				words = append(words, val.metaData)
+			}
+			elements(val)
+		}
+
+	}
 	fmt.Println(words)
 }
