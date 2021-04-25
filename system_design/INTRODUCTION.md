@@ -6,4 +6,4 @@
 by upgrading the current specs of system or adding more featuers to our current system.
 * Horizontal scaling means adding more resources to our existing pool of resources. We can achieve this by adding more machines to our current setup.
 
-![vs_hs](https://github.com/jaiswalpuru/ALGO_DS_SD/system_design/static/img/vs_hs.png)
+![](https://github.com/jaiswalpuru/ALGO_DS_SD/blob/main/system_design/static/img/vs_hs.jpg)
