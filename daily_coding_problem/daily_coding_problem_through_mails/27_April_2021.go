@@ -34,6 +34,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"time"
 )
@@ -51,7 +52,7 @@ func main() {
 	for i := 0; i < INTERVAL; i++ {
 		randX = float64(rand.Int()%(INTERVAL+1)) / float64(INTERVAL)
 		randY = float64(rand.Int()%(INTERVAL+1)) / float64(INTERVAL)
-		distFromOrigin = randX*randX + randY*randY
+		distFromOrigin = math.Sqrt(randX*randX + randY*randY)
 
 		//check if the point lies inside the circle with r = 1
 		if distFromOrigin <= 1 {
