@@ -4,6 +4,10 @@
 //This problem can be solved by division easily -> calculate the product of all the numbers in the array and
 //then for each index store -> π(arr)/arr[i]
 
+//This problem can also be solved using division method
+// π(xi) where 1≤x≤n
+//Compute the product of all the elements in the array, for each element replace arr[i] with prod/arr[i]
+
 package main
 
 import "fmt"
