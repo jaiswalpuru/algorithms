@@ -14,12 +14,14 @@ import (
 	"math"
 )
 
-func all_subset(arr *[]int, subset *[]int, cur_ind int) {
-	fmt.Println(*subset)
+var r = [][]int{}
+
+func all_subset(arr *[]int, subset []int, cur_ind int) {
+	r = append(r, subset)
 	for i := cur_ind; i < len(*arr); i++ {
-		*subset = append(*subset, (*arr)[i])
+		subset = append(subset, (*arr)[i])
 		all_subset(arr, subset, i+1)
-		*subset = (*subset)[:len(*subset)-1]
+		subset = subset[:len(subset)-1]
 	}
 }
 
@@ -42,7 +44,8 @@ func all_subset_iterative(arr []int) [][]int {
 func main() {
 	arr := []int{1, 2, 3}
 	subset := make([]int, 0)
-	all_subset(&arr, &subset, 0)
+	all_subset(&arr, subset, 0)
+	fmt.Println(r)
 	res := all_subset_iterative(arr)
 	for i := 0; i < len(res); i++ {
 		fmt.Println(res[i])
