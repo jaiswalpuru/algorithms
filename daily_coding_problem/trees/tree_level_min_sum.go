@@ -1,3 +1,7 @@
+/*
+    Return the level of a tree that has minimum sum.
+*/
+
 package main
 
 import "fmt"
