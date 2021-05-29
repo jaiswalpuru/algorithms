@@ -1,3 +1,17 @@
+/*
+	Compute running median of sequence of numbers. That is, given a stream of numbers ,
+	print out the median of the list so far after each new element
+	IP : [2,1,5,7,2,0,5]
+	OP :
+		2
+		1.5
+		2
+		3.5
+		2
+		2
+		2
+*/
+
 package main
 
 import (
