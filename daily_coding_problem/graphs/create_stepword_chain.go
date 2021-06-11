@@ -16,10 +16,10 @@ func word_ladder(start, end string, words []string) []string {
 	queue = append(queue, Pair{word: start, path: p})
 
 	for len(queue) > 0 {
-		fmt.Println("Before popping : ", queue)
+		//fmt.Println("Before popping : ", queue)
 		word, path := queue[0].word, queue[0].path
 		queue = queue[1:]
-		fmt.Println("After pooping : ", queue)
+		//fmt.Println("After pooping : ", queue)
 		if word == end {
 			return path
 		}
