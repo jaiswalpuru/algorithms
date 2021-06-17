@@ -4,10 +4,19 @@ Algorithm R -> Alan Waterman (Slow)
 The algorithm works by maintaing a reservoir of size k, which initially contains the first k items of the input.
 
 It then iterates over the remaining items until the input is exhausted.
-Using one-based array indexing  let i > k be the index of the current item under consideration. The algo then generates a random number j, b/t [1, i]. If j is atmost k, then the item is selected and replaces whichever item currently occupies the j-th position in the reservoir. Else the item is discarded. For all i, the ith element chosen to be included in the reservoir with probability of k/i. Similarly, at each iteration the jth element of the reservoir array is chosen to be replaced with probability 
-1/k X k/i = 1/i. 
+Using one-based array indexing  let i > k be the index of the current item under consideration.
 
-It can be shown that when the algorithm has finished executing, each item in the input population has equal probability (k/n).
+The algo then generates a random number j, b/t [1, i]. If j is atmost k, then the item is selected and 
+replaces whichever item currently occupies the j-th position in the reservoir.
+
+Else the item is discarded. For all i, the ith element chosen to be included in the 
+reservoir with probability of k/i. 
+
+Similarly, at each iteration the jth element of the reservoir array is chosen to be replaced with 
+probability 1/k X k/i = 1/i. 
+
+It can be shown that when the algorithm has finished executing, each item in the input population has equal 
+probability (k/n).
 ```
 
 ```sh
