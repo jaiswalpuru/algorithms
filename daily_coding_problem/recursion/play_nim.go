@@ -27,22 +27,22 @@ func get_moves(heaps []int) [][]int {
 			moves = append(moves, update(heaps, piles, i))
 		}
 	}
-	moves_set := [][]int{}
-	for i := 0; i < len(moves); i++ {
-		for j := 0; j < len(moves) && j != i; j++ {
-			if moves[i][0] == moves[j][0] && moves[i][1] == moves[j][1] && moves[i][2] == moves[j][2] {
-				moves[j][0] = -9
-				moves[j][1] = -9
-				moves[j][2] = -9
-			}
-		}
-	}
+	// moves_set := [][]int{}
+	// for i := 0; i < len(moves); i++ {
+	// 	for j := 0; j < len(moves) && j != i; j++ {
+	// 		if moves[i][0] == moves[j][0] && moves[i][1] == moves[j][1] && moves[i][2] == moves[j][2] {
+	// 			moves[j][0] = -9
+	// 			moves[j][1] = -9
+	// 			moves[j][2] = -9
+	// 		}
+	// 	}
+	// }
 
-	for i := 0; i < len(moves); i++ {
-		if moves[i][0] != -9 && moves[i][1] != -9 && moves[i][2] != -9 {
-			moves_set = append(moves_set, moves[i])
-		}
-	}
+	// for i := 0; i < len(moves); i++ {
+	// 	if moves[i][0] != -9 && moves[i][1] != -9 && moves[i][2] != -9 {
+	// 		moves_set = append(moves_set, moves[i])
+	// 	}
+	// }
 
 	return moves
 }
