@@ -36,13 +36,36 @@ func longest_inc_subseq_recursive_wrapper(arr []int) int {
 	return max
 }
 
-func longest_inc_subseq(arr []int) {
-	//length := 0
+func max_element(arr []int) int {
+	l := arr[0]
+	n := len(arr)
+	for i := 1; i < n; i++ {
+		if arr[i] > l {
+			l = arr[i]
+		}
+	}
+	return l
+}
 
+func longest_inc_subseq(arr []int) int {
+	n := len(arr)
+	list := make([]int, n)
+	list[0] = 1
+
+	for i := 1; i < n; i++ {
+		list[i] = 1
+		for j := 0; j < i; j++ {
+			if arr[i] > arr[j] && list[i] < list[j]+1 {
+				list[i] = list[j] + 1
+			}
+		}
+	}
+
+	return max_element(list)
 }
 
 func main() {
 	arr := []int{0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15}
 	fmt.Println(longest_inc_subseq_recursive_wrapper(arr))
-	//longest_inc_subseq(arr)
+	fmt.Println(longest_inc_subseq(arr))
 }
