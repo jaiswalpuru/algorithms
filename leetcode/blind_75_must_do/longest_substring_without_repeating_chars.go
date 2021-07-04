@@ -52,10 +52,8 @@ func len_of_longest_increasing_subseq(s string) int {
 			if j <= (mp[string(s[i])]) {
 				j = mp[string(s[i])] + 1
 			}
-			mp[string(s[i])] = i
-		} else {
-			mp[string(s[i])] = i
 		}
+		mp[string(s[i])] = i
 		i++
 	}
 	return max(length, i-j)
