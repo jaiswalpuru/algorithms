@@ -45,17 +45,17 @@ func main() {
 	fmt.Println(num_ways(4))
 	fmt.Println(num_ways_recursive(4))
 
-	//lets say we are given an array which consists of steps we can take
+	lets say we are given an array which consists of steps we can take
 	fmt.Println(num_ways_mod(4, []int{1, 3, 5}))
-	fmt.Println(num_ways_mod_dp(4, []int{1, 3, 5}))
+	fmt.Println(num_ways_mod_dp(7, []int{2, 3, 6, 7}))
 }
 
 func num_ways_mod_dp(n int, x []int) int {
 	arr := make([]int, n+1)
 	m := len(x)
 	arr[0] = 1
-	arr[1] = 1
-	for i := 2; i <= n; i++ {
+
+	for i := 1; i <= n; i++ {
 		for j := 0; j < m; j++ {
 			if i-x[j] >= 0 {
 				arr[i] += arr[i-x[j]]
