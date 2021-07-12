@@ -43,7 +43,7 @@ import (
 )
 
 func _combinatorial_sum(arr []int, res *[][]int, target, start int, temp []int, str string) {
-	fmt.Println(target, str, temp, start)
+	//fmt.Println(target, str, temp, start)
 	if target < 0 {
 		return
 	}
@@ -68,9 +68,9 @@ func combinatorial_sum(arr []int, target int) [][]int {
 }
 
 func main() {
-	//fmt.Println(combinatorial_sum([]int{2, 3, 6, 7}, 7))
+	fmt.Println(combinatorial_sum([]int{2, 3, 6, 7}, 7))
 	fmt.Println(combinatorial_sum([]int{2, 3, 5}, 8))
-	//fmt.Println(combinatorial_sum([]int{2}, 1))
-	//fmt.Println(combinatorial_sum([]int{1}, 1))
-	//fmt.Println(combinatorial_sum([]int{1}, 2))
+	fmt.Println(combinatorial_sum([]int{2}, 1))
+	fmt.Println(combinatorial_sum([]int{1}, 1))
+	fmt.Println(combinatorial_sum([]int{1}, 2))
 }
