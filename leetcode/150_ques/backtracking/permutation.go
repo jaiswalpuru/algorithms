@@ -23,6 +23,7 @@ func _permute(arr []int, res *[][]int, ind int) {
 
 	if ind == len(arr) {
 		*res = append(*res, append([]int{}, arr...))
+		return
 	}
 
 	for i := ind; i < len(arr); i++ {
