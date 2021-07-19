@@ -28,9 +28,10 @@ package main
 import "fmt"
 
 func reverse(a *[]int, i int) {
+	m := len((*a)[i:])
 	n := len((*a)[i:]) / 2
-	for j := i; j < n; i++ {
-		(*a)[j], (*a)[n-1-j] = (*a)[n-1-j], (*a)[j]
+	for j := i; j < n; j++ {
+		(*a)[j], (*a)[m-1-j] = (*a)[m-1-j], (*a)[j]
 	}
 }
 
