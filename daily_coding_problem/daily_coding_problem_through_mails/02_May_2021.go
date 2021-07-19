@@ -28,36 +28,38 @@ func getMinValInList(arr []int) int {
 	return minVal
 }
 
-func minCost(arr []int, j int) int {
-	temp := make([]int, len(arr)-1)
-	//cloning so that it doesn't deep copy
-	for i, k := 0, 0; i < len(arr); i++ {
-		if i != j {
-			temp[k] = arr[i]
-			k++
-		}
+func min_cost_paint_houses(cost [][]int) int {
+	k := len(cost[0])
+	soln := make([][]int, 0)
+	temp_cost := []int{}
+	for i := 0; i < k; i++ {
+		temp_cost = append(temp_cost, 0)
 	}
-	return getMinValInList(temp)
+	soln = append(soln, temp_cost)
+
+	for r, row := range cost {
+		row_cost, temp_cost := []int{}, []int{}
+		for c, val := range row {
+			for i := 0; i < k; i++ {
+				if i != c {
+					temp_cost = append(temp_cost, soln[r][i]+val)
+				}
+			}
+			fmt.Println(temp_cost)
+			row_cost = append(row_cost, getMinValInList(temp_cost))
+			fmt.Println(row_cost)
+		}
+		soln = append(soln, row_cost)
+	}
+	return getMinValInList(soln[len(soln)-1])
 }
 
+//point of optimization as we are only looking at the last row we don't need to store all the values
+
 func main() {
-	//N=4 houses
-	cost := [][]int{{2, 5}, {1, 6}, {2, 7}, {4, 3}}
-
-	totalCost := [][]int{{0, 0}, {0, 0}, {0, 0}, {0, 0}}
-	numColors := len(cost[0])
-
-	for i := 0; i < 4; i++ {
-		if i == 0 {
-			for j := 0; j < numColors; j++ {
-				totalCost[i][j] = cost[i][j]
-			}
-		} else {
-			for j := 0; j < numColors; j++ {
-				costTemp := cost[i][j]
-				totalCost[i][j] = costTemp + minCost(totalCost[i-1], j)
-			}
-		}
+	cost := [][]int{
+		{14, 2, 11}, {11, 14, 5}, {14, 3, 10},
 	}
-	fmt.Println("Total minimum cost of the houses : ", getMinValInList(totalCost[len(totalCost)-1]))
+
+	fmt.Println(min_cost_paint_houses(cost))
 }
