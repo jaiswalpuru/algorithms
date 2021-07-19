@@ -45,7 +45,7 @@ func main() {
 	fmt.Println(num_ways(4))
 	fmt.Println(num_ways_recursive(4))
 
-	lets say we are given an array which consists of steps we can take
+	//lets say we are given an array which consists of steps we can take
 	fmt.Println(num_ways_mod(4, []int{1, 3, 5}))
 	fmt.Println(num_ways_mod_dp(7, []int{2, 3, 6, 7}))
 }
