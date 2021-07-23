@@ -43,7 +43,7 @@ func two_key_keyboards(n int) int {
 		} else {
 			res[i] = i
 			for j := int(math.Sqrt(float64(i))); j > 1; j-- {
-				fmt.Println(i, j)
+				//fmt.Println(i, j)
 				if i%j == 0 {
 					res[i] = min(res[i], res[i/j]+j)
 				}
