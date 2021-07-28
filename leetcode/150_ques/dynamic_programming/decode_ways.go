@@ -45,17 +45,6 @@ import (
 	"strconv"
 )
 
-var (
-	mp = map[int]rune{}
-)
-
-func fill_map() {
-	mp[1] = 'A'
-	for i := 2; i <= 26; i++ {
-		mp[i] = mp[i-1] + 1
-	}
-}
-
 func decode_ways(str string, total int) int {
 	n := len(str)
 	if n <= 1 {
@@ -95,7 +84,6 @@ func decode_ways_dp(str string) int {
 }
 
 func main() {
-	fill_map()
 	fmt.Println(decode_ways("12", 0))
 	fmt.Println(decode_ways("226", 0))
 	fmt.Println(decode_ways_dp("12"))
