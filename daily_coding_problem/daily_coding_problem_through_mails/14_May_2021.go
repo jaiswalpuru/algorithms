@@ -11,35 +11,38 @@ package main
 
 import "fmt"
 
-func abs(a int) int {
-	if a < 0 {
-		return a * -1
+func min(a, b int) int {
+	if a > b {
+		return b
 	}
 	return a
 }
 
-func computeDistance(s1, s2 string) int {
-	distance := 0
-	n, m := len(s1), len(s2)
-	if n != m {
-		distance += abs(n - m)
-	}
-	if n < m {
-		n, m = m, n
-		s1, s2 = s2, s1
-	}
-	mp := make(map[rune]int)
+func computeDistance(word1, word2 string) int {
+	n, m := len(word1)+1, len(word2)+1
+	dp := make([][]int, n)
 	for i := 0; i < n; i++ {
-		mp[rune(s1[i])]++
+		dp[i] = make([]int, m)
 	}
-	for i := 0; i < m; i++ {
-		if _, ok := mp[rune(s2[i])]; ok {
-			mp[rune(s2[i])]--
-		} else {
-			distance++
+
+	for i := 0; i < n; i++ {
+		dp[i][0] = i
+	}
+
+	for j := 0; j < m; j++ {
+		dp[0][j] = j
+	}
+
+	for i := 1; i < n; i++ {
+		for j := 1; j < m; j++ {
+			if word1[i-1] == word2[j-1] {
+				dp[i][j] = dp[i-1][j-1]
+			} else {
+				dp[i][j] = min(dp[i-1][j]+1, min(dp[i][j-1]+1, dp[i-1][j-1]+1))
+			}
 		}
 	}
-	return distance
+	return dp[n-1][m-1]
 }
 
 func main() {
