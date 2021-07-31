@@ -30,6 +30,40 @@ func check_palindrome(head *DLL) bool {
 	return true
 }
 
+type LL struct {
+	data int
+	next *LL
+}
+
+func New_LL(data int) *LL { return &LL{data: data, next: nil} }
+
+func check_palindrome_ll(l *LL) bool {
+
+	sp, fp := l, l
+	stack := []*LL{}
+	for fp != nil && fp.next != nil {
+		stack = append(stack, sp)
+		sp = sp.next
+		fp = fp.next.next
+	}
+	if fp != nil {
+		sp = sp.next
+	}
+	for len(stack) > 0 && sp != nil {
+		n := len(stack)
+		val := stack[n-1]
+		stack = stack[:n-1]
+		if val.data != sp.data {
+			return false
+		}
+		sp = sp.next
+	}
+	if (sp == nil && len(stack) > 0) || (sp != nil && len(stack) <= 0) {
+		return false
+	}
+	return true
+}
+
 func main() {
 	root := New(1)
 	root.right = New(4)
@@ -45,4 +79,10 @@ func main() {
 	root_one.right = New(4)
 	root_one.right.left = root
 	fmt.Println(check_palindrome(root_one))
+	root_ll := New_LL(1)
+	root_ll.next = New_LL(4)
+	root_ll.next.next = New_LL(3)
+	root_ll.next.next.next = New_LL(4)
+	root_ll.next.next.next.next = New_LL(1)
+	fmt.Println(check_palindrome_ll(root_ll))
 }
