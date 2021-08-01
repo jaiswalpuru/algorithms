@@ -27,6 +27,7 @@ type Node struct {
 func New(data int) *Node { return &Node{Val: data, Left: nil, Right: nil} }
 
 func level_order_traverse(root *Node) [][]int {
+
 	if root == nil {
 		return nil
 	}
