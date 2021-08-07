@@ -50,7 +50,6 @@ func reorder_list(l *LL) {
 	for fp != nil && fp.Next != nil {
 		sp, fp = sp.Next, fp.Next.Next
 	}
-	fmt.Println(sp, fp)
 	var prev *LL
 	for sp != nil {
 		sp.Next, prev, sp = prev, sp, sp.Next
