@@ -28,20 +28,18 @@ var (
 	res = []string{}
 )
 
-func _all_perm(str []byte, s string, res *[]string, i int, temp string) {
-	fmt.Println(temp, string(str), i-1)
+func _all_perm(str []byte, s string, res *[]string, i int) {
 	if len(str) == len(s) {
 		*res = append(*res, string(str))
 		return
 	}
 	if i < len(s) {
-		_all_perm(append(str, s[i]), s, res, i+1, "1st call")
+		_all_perm(append(str, s[i]), s, res, i+1)
 		if s[i] >= 'a' && s[i] <= 'z' {
-			_all_perm(append(str, s[i]-32), s, res, i+1, "2nd call")
+			_all_perm(append(str, s[i]-32), s, res, i+1)
 		} else if s[i] >= 'A' && s[i] <= 'Z' {
-			_all_perm(append(str, s[i]+32), s, res, i+1, "3nd call")
+			_all_perm(append(str, s[i]+32), s, res, i+1)
 		}
-		fmt.Println("donwl", i-1)
 	}
 }
 
