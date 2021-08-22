@@ -18,13 +18,22 @@ func power_set(arr []int) [][]int {
 	return res
 }
 
+// func powerset(arr []int, subset []int, start int, res *[][]int) {
+// 	if idx == len(arr) {
+// 		*res = append(*res, append([]int{}, subset...))
+// 		return
+// 	}
+// 	power_set(arr, cur, start+1, res)
+// 	power_set(arr, append(subset, arr[start]), start+1, res)
+// }
+
 func powerset(arr []int, subset []int, start int, res *[][]int) {
-	if idx == len(arr) {
-		*res = append(*res, append([]int{}, subset...))
-		return
+	*res = append(*res, append([]int{}, subset...))
+	for i := start; i < len(arr); i++ {
+		temp := append(subset, arr[i])
+		powerset(arr, temp, i+1, res)
+		temp = temp[:len(temp)-1]
 	}
-	power_set(arr, cur, start+1, res)
-	power_set(arr, append(subset, arr[start]), start+1, res)
 }
 
 func power_set_non_recursive(arr []int) {
