@@ -7,4 +7,7 @@ If a problem is suitable to use monotonic stack, it has atleast 3 charaters :
 • It is a "range query in a array" problem.
 • The minima/maxima element or the monotonic order of elements in a range is useful to get answer of every range query.
 • When a element is popped out of monotonic stack it will never be used again.
+
+
+Reference : Medium article by Yang Zhou
 ```
