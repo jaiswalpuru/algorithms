@@ -18,7 +18,7 @@ func power_set(arr []int) [][]int {
 }
 
 func backtrack(arr []int, subset []int, start int, res *[][]int) {
-	*res = append(*res, subset)
+	*res = append(*res, append([]int{}, subset...))
 	for i := start; i < len(arr); i++ {
 		if i > start && arr[i] == arr[i-1] {
 			continue
