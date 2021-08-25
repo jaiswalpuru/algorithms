@@ -45,7 +45,7 @@ func _all_perm(str []byte, s string, res *[]string, i int) {
 
 func all_perm(str string) []string {
 	res := []string{}
-	_all_perm([]byte{}, str, &res, 0, "")
+	_all_perm([]byte{}, str, &res, 0)
 	return res
 }
 
