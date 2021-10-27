@@ -32,47 +32,29 @@ type Node struct {
 
 func New(data int) *Node { return &Node{Val: data, Left: nil, Right: nil} }
 
-func max_path_sum(root *Node) int {
-	res := int(math.MinInt32)
-	_max_path_sum(root, &res)
-	return res
-}
-
-func update_val(val int, res *int) {
-	if val > *res {
-		*res = val
-	}
-}
-
-func _max_path_sum(root *Node, res *int) int {
-	update_val(root.Val, res)
-	if root == nil {
-		return root.Val
-	}
-
-	var left, right int
-	if root.Left != nil {
-		left = _max_path_sum(root.Left, res)
-		update_val(root.Val+left, res)
-	}
-
-	if root.Right != nil {
-		right = _max_path_sum(root.Right, res)
-		update_val(root.Val+right, res)
-	}
-
-	if root.Left != nil && root.Right != nil {
-		update_val(root.Val+left+right, res)
-	}
-
-	return max(max(left, right)+root.Val, root.Val)
-}
-
 func max(a, b int) int {
 	if a > b {
 		return a
 	}
 	return b
+}
+
+func max_gain(root *Node, sum *int) int {
+	if root == nil {
+		return 0
+	}
+
+	left_gain := max(max_gain(root.Left, sum), 0)
+	right_gain := max(max_gain(root.Right, sum), 0)
+	new_path_sum := root.Val + left_gain + right_gain
+	*sum = max(*sum, new_path_sum)
+	return root.Val + max(left_gain, right_gain)
+}
+
+func max_path_sum(root *Node) int {
+	sum := int(math.MinInt32)
+	max_gain(root, &sum)
+	return sum
 }
 
 func main() {
