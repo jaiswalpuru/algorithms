@@ -24,7 +24,7 @@ func missing_element_in_sorted_array(arr []int, k int) int {
 			h = mid
 		}
 	}
-	return arr[l-1] + k - missing(l-1, arr)
+	return arr[l-1] + k - missing(l-1, arr) //returning the element from the left of the array
 }
 
 func main() {
