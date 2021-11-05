@@ -28,12 +28,26 @@ func _find(arr []int, l, h int) int {
 	return _find(arr, mid+1, h)
 }
 
+//Using bsearch
+func _find_peak_element(arr []int) int {
+	l, h := 0, len(arr)-1
+	for l < h {
+		mid := (l + h) / 2
+		if arr[mid] > arr[mid+1] {
+			h = mid
+		} else {
+			l = mid + 1
+		}
+	}
+	return l
+}
+
 func main() {
-	fmt.Println(find_peak_element([]int{1, 2, 3, 1}))
-	fmt.Println(find_peak_element([]int{1, 2, 1, 3, 5, 6, 4}))
-	fmt.Println(find_peak_element([]int{1, 2}))
-	fmt.Println(find_peak_element([]int{0}))
-	fmt.Println(find_peak_element([]int{1, 3, 2}))
-	fmt.Println(find_peak_element([]int{1, 2, 3}))
-	fmt.Println(find_peak_element([]int{2, 1}))
+	fmt.Println(_find_peak_element([]int{1, 2, 3, 1}))
+	fmt.Println(_find_peak_element([]int{1, 2, 1, 3, 5, 6, 4}))
+	fmt.Println(_find_peak_element([]int{1, 2}))
+	fmt.Println(_find_peak_element([]int{0}))
+	fmt.Println(_find_peak_element([]int{1, 3, 2}))
+	fmt.Println(_find_peak_element([]int{1, 2, 3}))
+	fmt.Println(_find_peak_element([]int{2, 1}))
 }
