@@ -40,7 +40,7 @@ func _combination_sum2(arr []int, target int, temp []int, res *[][]int, ind int)
 	}
 
 	for i := ind; i < len(arr); i++ {
-		if i > ind && arr[i] == arr[ind] {
+		if i > ind && arr[i] == arr[i-1] {
 			//skip
 			continue
 		}
