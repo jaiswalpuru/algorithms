@@ -5,7 +5,7 @@ Given n pairs of parentheses, write a function to generate all combinations of w
 /*--------------------------------------------------
 Solution:
 Brute Force :
-
+Generate all possible 2^2n combinations and then check which one is valid, if a valid string is found then add it to the ans.
 
 -----------------------------------------------------*/
 
