@@ -10,6 +10,8 @@ tonight without alerting the police.
 
 package main
 
+import "fmt"
+
 func max(a, b int) int {
 	if a > b {
 		return a
@@ -17,7 +19,34 @@ func max(a, b int) int {
 	return b
 }
 
-func main() {
-	nums := []int{2, 3, 2}
+func house_robber(nums []int) int {
+	n := len(nums)
 
+	if n == 0 {
+		return 0
+	}
+
+	if n == 1 {
+		return nums[0]
+	}
+
+	return max(_house_robber(nums[1:]), _house_robber(nums[:n-1]))
+}
+
+func _house_robber(nums []int) int {
+	n := len(nums)
+	t1, t2 := 0, 0
+	for i := 0; i < n; i++ {
+		temp := t1
+		t1 = max(nums[i]+t2, t1)
+		t2 = temp
+	}
+	return t1
+}
+
+func main() {
+	fmt.Println(house_robber([]int{1, 2, 3}))
+	fmt.Println(house_robber([]int{2, 3, 2}))
+	fmt.Println(house_robber([]int{1, 2, 3, 4, 5}))
+	fmt.Println(house_robber([]int{1, 2, 3, 4, 5, 6}))
 }
