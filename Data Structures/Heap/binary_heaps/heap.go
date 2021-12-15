@@ -3,7 +3,7 @@ Author : Puru Jaiswal
 References : CLRS
 */
 
-package heaps
+package binary_heaps
 
 import (
 	"fmt"
