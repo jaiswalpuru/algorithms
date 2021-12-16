@@ -32,7 +32,7 @@ func (s *Stack) Push(val Item) {
 
 //Pop
 func (s *Stack) Pop() Item {
-	if s.top == -1 {
+	if s.Is_Empty() {
 		fmt.Println("Stack empty")
 		return nil
 	}
