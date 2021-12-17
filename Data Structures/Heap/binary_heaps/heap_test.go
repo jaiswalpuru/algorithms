@@ -1,4 +1,4 @@
-package binary_heaps
+package binaryheaps
 
 import (
 	"testing"
