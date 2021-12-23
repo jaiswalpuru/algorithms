@@ -7,6 +7,8 @@ A boomerang is a set of three points that are all distinct and not in a straight
 
 package main
 
+import "fmt"
+
 //Note: Three points are said to be collinear if the area of triangle formed by the three points == 0
 //Area of triangle = 1/2 ((x1-x2)(y2-y3)-(x2-x3)(y1-y2))
 
@@ -18,5 +20,5 @@ func valid_boomerang(arr [][]int) bool {
 }
 
 func main() {
-
+	fmt.Println([][]int{{1, 1}, {2, 2}, {3, 3}})
 }
