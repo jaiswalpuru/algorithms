@@ -1,3 +1,8 @@
+/*
+Author : Puru Jaiswal
+Reference : CLRS
+*/
+
 package dll
 
 type Item interface{}
