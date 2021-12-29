@@ -34,13 +34,9 @@ func (l *List) Search(val interface{}) *Node {
 }
 
 func (l *List) Insert(node *Node) {
-	if l == nil {
-		l.head = node
-	} else {
-		temp := l.head
-		node.next = temp
-		l.head = node
-	}
+	temp := l.head
+	node.next = temp
+	l.head = node
 }
 
 func (l *List) Delete(node *Node) {
