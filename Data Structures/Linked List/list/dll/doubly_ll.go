@@ -13,33 +13,40 @@ type Node struct {
 	prev *Node
 }
 
-func New(data Item) *Node { return &Node{data: data, next: nil, prev: nil} }
+type List struct {
+	head *Node
+}
 
-func (l *Node) Search(val Item) *Node {
-	for l.next != l {
-		if l.data == val {
-			return l
+func New() *List { return &List{} }
+
+func (l *List) Search(val Item) *Node {
+	itr := l.head
+	for itr != nil {
+		if itr.data == val {
+			return itr
 		}
-		l = l.next
+		itr = itr.next
 	}
 	return nil
 }
 
-func (l *Node) Insert(n *Node) {
-	n.next = l
-	if l != nil {
-		l.prev = n
+func (l *List) Insert(node *Node) {
+	itr := l.head
+	if itr == nil {
+		l.head = node
+	} else {
+		node.next = itr
+		itr.prev = node
+		l.head = node
 	}
-	l = n
-	n.prev = nil
 }
 
 //to delete a node from the list, first search should be called from the wrapper
-func (l *Node) Delete(node *Node) {
+func (l *List) Delete(node *Node) {
 	if node.prev != nil {
 		node.prev.next = node.next
 	} else {
-		l = node.next
+		l.head = node.next
 	}
 	if node.next != nil {
 		node.next.prev = node.prev
