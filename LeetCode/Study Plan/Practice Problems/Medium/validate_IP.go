@@ -39,7 +39,7 @@ func validate_IP(str string) string {
 		for i := 0; i < len(list); i++ {
 			temp := list[i]
 			m := len(temp)
-			if m > 3 || m < 0 || (m > 1 && temp[0] == '0') {
+			if m > 3 || m <= 0 || (m > 1 && temp[0] == '0') {
 				return "Neither"
 			}
 			num := 0
@@ -58,7 +58,7 @@ func validate_IP(str string) string {
 		for i := 0; i < len(list); i++ {
 			temp := list[i]
 			m := len(temp)
-			if m < 0 || m > 4 {
+			if m <= 0 || m > 4 {
 				return "Neither"
 			}
 			for j := 0; j < m; j++ {
