@@ -18,7 +18,6 @@ import (
 
 func rotate_function(arr []int) int {
 	n := len(arr)
-	dp := make([]int, n)
 
 	sum := 0
 	f_0 := 0
