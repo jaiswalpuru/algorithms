@@ -14,6 +14,9 @@ import (
 	"sort"
 )
 
+/*
+the brute force approach would be to use a set (c++ ref) of list rather than list of list
+*/
 func combination_sum_II(arr []int, target int) [][]int {
 	res := [][]int{}
 	sort.Ints(arr)
