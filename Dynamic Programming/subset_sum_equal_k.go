@@ -89,13 +89,15 @@ func subset_sum_dp(arr []int, target int) bool {
 		dp[i] = make([]bool, target+1)
 		dp[i][0] = true
 	}
-
+	if arr[0] <= target {
+		dp[0][arr[0]] = true
+	}
 	for i := 1; i < n; i++ {
 		for tgt := 1; tgt <= target; tgt++ {
 			not_take := dp[i-1][tgt]
 			take := false
-			if arr[i] <= target {
-				take = dp[i-1][target-arr[i]]
+			if arr[i] <= tgt {
+				take = dp[i-1][tgt-arr[i]]
 			}
 			dp[i][tgt] = take || not_take
 		}
