@@ -20,6 +20,10 @@ func _check_string_valid(root *TreeNode, arr []int, ind int) bool {
 		return false
 	}
 
+	if ind == len(arr) {
+		return false
+	}
+
 	if root.Left == nil && root.Right == nil && ind < len(arr) {
 		if root.Val == arr[ind] && ind == len(arr)-1 {
 			return true
@@ -27,9 +31,6 @@ func _check_string_valid(root *TreeNode, arr []int, ind int) bool {
 		return false
 	}
 
-	if ind == len(arr) {
-		return false
-	}
 	if root.Val == arr[ind] {
 		return _check_string_valid(root.Left, arr, ind+1) || _check_string_valid(root.Right, arr, ind+1)
 	}
