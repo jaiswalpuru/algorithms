@@ -50,6 +50,33 @@ func maximal_network_rank(n int, edges [][]int) int {
 	return max_rank
 }
 
+func maximal_network_rank_using_degrees(n int, edges [][]int) int {
+	graph := make([][]bool, n)
+	degrees := make([]int, n)
+	for i := range graph {
+		graph[i] = make([]bool, n)
+	}
+
+	for i := 0; i < len(edges); i++ {
+		graph[edges[i][0]][edges[i][1]] = true
+		graph[edges[i][1]][edges[i][0]] = true
+		degrees[edges[i][0]]++
+		degrees[edges[i][1]]++
+	}
+
+	max_connection := 0
+	for i := 0; i < n; i++ {
+		for j := i + 1; j < n; j++ {
+			if graph[i][j] {
+				max_connection = max(max_connection, degrees[i]+degrees[j]-1)
+			} else {
+				max_connection = max(max_connection, degrees[i]+degrees[j])
+			}
+		}
+	}
+	return max_connection
+}
+
 func main() {
 	fmt.Println(maximal_network_rank(5, [][]int{
 		{2, 3}, {0, 3}, {0, 4}, {4, 1},
