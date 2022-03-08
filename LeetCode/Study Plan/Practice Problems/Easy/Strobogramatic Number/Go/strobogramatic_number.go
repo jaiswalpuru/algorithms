@@ -35,6 +35,26 @@ func is_strobogrammtic_number(str string) bool {
 	return true
 }
 
+//-------------------------A better approach coding wise not complexity wise(which is same as above)------------------
+func is_strobogrammtic_number_better(str string) bool {
+	rotated_string := []byte{}
+	n := len(str)
+	for i := n - 1; i >= 0; i-- {
+		if str[i] == '0' || str[i] == '1' || str[i] == '8' {
+			rotated_string = append(rotated_string, str[i])
+		} else if str[i] == '6' {
+			rotated_string = append(rotated_string, '9')
+		} else if str[i] == '9' {
+			rotated_string = append(rotated_string, '6')
+		} else {
+			return false
+		}
+	}
+	return string(rotated_string) == str
+}
+
+//--------------------------------------------------------------------------------------------------------------------
+
 func main() {
-	fmt.Println(is_strobogrammtic_number("69"))
+	fmt.Println(is_strobogrammtic_number_better("69"))
 }
