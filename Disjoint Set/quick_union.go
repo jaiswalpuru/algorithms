@@ -2,31 +2,30 @@ package main
 
 import "fmt"
 
-type UnionFind struct {
-	root []int
-}
+type UnionFind struct{ root []int }
 
-func Constructor(n int) UnionFind {
-	u := UnionFind{root: make([]int, n)}
-	for i := 0; i < n; i++ {
+func Constructor(node int) UnionFind {
+	var u UnionFind
+	u.root = make([]int, node)
+	for i := 0; i < node; i++ {
 		u.root[i] = i
 	}
 	return u
 }
 
-func (this *UnionFind) find(x int) int { return this.root[x] }
-
 func (this *UnionFind) union(x, y int) {
 	root_x := this.find(x)
 	root_y := this.find(y)
-
 	if root_x != root_y {
-		for i := 0; i < len(this.root); i++ {
-			if this.root[i] == root_y {
-				this.root[i] = root_x
-			}
-		}
+		this.root[root_y] = root_x
 	}
+}
+
+func (this *UnionFind) find(x int) int {
+	for x != this.root[x] {
+		x = this.root[x]
+	}
+	return x
 }
 
 func (this *UnionFind) is_connected(x, y int) bool { return this.find(x) == this.find(y) }
@@ -44,4 +43,5 @@ func main() {
 	fmt.Println(u.is_connected(4, 9))
 	u.union(9, 4)
 	fmt.Println(u.is_connected(4, 9))
+
 }
