@@ -17,6 +17,7 @@ func max(a, b int) int {
 	return b
 }
 
+//------------------------------without height----------------------------------
 func diameter_of_n_ary_tree(root *Node) int {
 	res := 0
 	dfs(root, &res)
@@ -35,6 +36,37 @@ func dfs(root *Node, res *int) int {
 	*res = max(*res, max_arr[len(max_arr)-1]+max_arr[len(max_arr)-2])
 	return 1+max_arr[len(max_arr)-1]
 }
+//------------------------------without height-----------------------------------
+
+//-----------------------using height--------------------------------
+func diameter_of_n_ary_tree_using_height(root *Node) int {
+	dia := 0
+	height(root, &dia)
+	return dia
+}
+
+func height(root *Node, dia *int) int {
+	if len(root.Children) == 0{
+		return 0
+	}
+
+	max_ht_1, max_ht_2 := 0,0 
+	for i:=0; i<len(root.Children); i++ {
+		parent_ht := height(root.Children[i], dia)+1
+		if parent_ht > max_ht_1 {
+			max_ht_2 = max_ht_1
+			max_ht_1 = parent_ht
+		}else if parent_ht > max_ht_2{
+			max_ht_2 = parent_ht
+		}
+		dis := max_ht_1+max_ht_2
+		*dia = max(*dia, dis)
+	}
+
+	return max_ht_1
+}
+
+//-----------------------using height--------------------------------
 
 func main() {
 	root := New(1)
