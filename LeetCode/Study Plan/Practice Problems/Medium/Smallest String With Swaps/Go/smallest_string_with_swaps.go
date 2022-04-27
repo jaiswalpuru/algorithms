@@ -31,7 +31,7 @@ func smallest_string_with_swaps(s string, pairs [][]int) string {
 	n := len(s)
 	res := make([]byte, n)
 	visited := make(map[int]bool)
-	for i := 0; i < n-1; i++ {
+	for i := 0; i < n; i++ {
 		if !visited[i] {
 			chars := []byte{}
 			indices := []int{}
