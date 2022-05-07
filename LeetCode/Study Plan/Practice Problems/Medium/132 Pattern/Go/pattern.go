@@ -1,32 +1,27 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
+import "math"
 
-//-----------------------------------bad brute force-----------------------------------
-func is_132_pattern_bf(arr []int) bool {
+//------------------------------brute force-------------------------------(do not try this)
+func pattern(arr []int) bool {
 	n := len(arr)
-	if n < 3 {
-		return false
-	}
 
 	for i := 0; i < n; i++ {
 		for j := i + 1; j < n; j++ {
 			for k := j + 1; k < n; k++ {
-				if arr[i] < arr[k] && arr[j] > arr[k] {
+				if arr[i] < arr[k] && arr[k] < arr[j] {
 					return true
 				}
 			}
 		}
 	}
-
 	return false
 }
 
-//---------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
 
+//-----------------------------a better brute force------------------------------
 func min(a, b int) int {
 	if a > b {
 		return b
@@ -34,14 +29,13 @@ func min(a, b int) int {
 	return a
 }
 
-//-----------------------------------better brute force------------------------
-func is_132_pattern_bf_eff(arr []int) bool {
+func pattern_better(arr []int) bool {
 	n := len(arr)
 	min_val := math.MaxInt64
-	for j := 0; j < n; j++ {
-		min_val = min(min_val, arr[j])
-		for k := j + 1; k < n; k++ {
-			if arr[j] > arr[k] && min_val < arr[k] {
+	for i := 0; i < n; i++ {
+		min_val = min(min_val, arr[i])
+		for j := i + 1; j < n; j++ {
+			if arr[i] > arr[j] && min_val < arr[j] {
 				return true
 			}
 		}
@@ -49,38 +43,37 @@ func is_132_pattern_bf_eff(arr []int) bool {
 	return false
 }
 
-//---------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
 
-//-------------------------------using monostack-----------------------------
-func is_132_pattern(arr []int) bool {
+//-------------------------------using mono stack---------------------------------
+func pattern_eff(arr []int) bool {
 	n := len(arr)
 	if n < 3 {
 		return false
 	}
-
-	stack := []int{}
-	min_arr := make([]int, n)
-	min_arr[0] = arr[0]
+	st := []int{}
+	min_val := make([]int, n)
+	min_val[0] = arr[0]
 	for i := 1; i < n; i++ {
-		min_arr[i] = min(min_arr[i-1], arr[i])
+		min_val[i] = min(min_val[i-1], arr[i])
 	}
 
 	for j := n - 1; j >= 0; j-- {
-		if min_arr[j] < arr[j] {
-			for len(stack) > 0 && stack[len(stack)-1] <= min_arr[j] {
-				stack = stack[:len(stack)-1]
+		if min_val[j] < arr[j] {
+			for len(st) > 0 && st[len(st)-1] <= min_val[j] {
+				st = st[:len(st)-1]
 			}
-			if len(stack) > 0 && stack[len(stack)-1] < arr[j] {
+			if len(st) > 0 && st[len(st)-1] < arr[j] {
 				return true
 			}
-			stack = append(stack, arr[j])
+			st = append(st, arr[j])
 		}
 	}
 	return false
 }
 
-//-------------------------------using monostack-----------------------------
+//-------------------------------using mono stack---------------------------------
 
 func main() {
-	fmt.Println(is_132_pattern([]int{1, 2, 3, 4}))
+	fmt.Println(pattern_eff([]int{3,1,4,2}))
 }

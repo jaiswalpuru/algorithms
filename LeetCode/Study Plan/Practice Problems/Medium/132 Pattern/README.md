@@ -26,6 +26,6 @@ Explanation: There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0
 Constraints:
 
 n == nums.length
-1 <= n <= 2 * 105
--109 <= nums[i] <= 109
+1 <= n <= 2 * 10^5
+-10^9 <= nums[i] <= 10^9
 ```
