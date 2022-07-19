@@ -29,11 +29,9 @@ func subarray_sum_map(arr []int, k int) int {
 	res := 0
 	sum := 0
 	visited := make(map[int]int)
+	visited[0] = 1
 	for i := 0; i < n; i++ {
 		sum += arr[i]
-		if sum == k {
-			res++
-		}
 		if _, ok := visited[sum-k]; ok {
 			res += visited[sum-k]
 		}
@@ -45,5 +43,5 @@ func subarray_sum_map(arr []int, k int) int {
 //-------------------------------------------------------------------------
 
 func main() {
-	fmt.Println(subarray_sum_map([]int{1, 2, 3}, 3))
+	fmt.Println(subarray_sum_map([]int{1, 2, 3, 4}, 3))
 }
