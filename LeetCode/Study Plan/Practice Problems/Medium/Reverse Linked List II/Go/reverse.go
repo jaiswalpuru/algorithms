@@ -98,6 +98,51 @@ func iterative_reverse(node *ListNode, m, n int) *ListNode {
 	return node
 }
 
+//-------------------------------easy to get solution------------------------
+func reverse_linked_list_two(head *ListNode, left int, right int) *ListNode {
+	var prev *ListNode
+	head_node := head
+	right = right - left + 1
+	for left > 1 {
+		prev = head
+		head = head.Next
+		left--
+	}
+	start := head
+	for right > 1 {
+		head = head.Next
+		right--
+	}
+	end := head.Next
+	head.Next = nil
+	t := reverse_list(start)
+	start.Next = nil
+	if prev != nil {
+		prev.Next = t
+	} else {
+		head_node = t
+	}
+	for t.Next != nil {
+		t = t.Next
+	}
+	t.Next = end
+	return head_node
+}
+
+func reverse_list(node *ListNode) *ListNode {
+	if node == nil {
+		return nil
+	}
+	temp := reverse(node.Next)
+	if temp == nil {
+		return node
+	}
+	node.Next.Next = node
+	return temp
+}
+
+//-------------------------------easy to get solution------------------------
+
 func main() {
 	node := New(1)
 	node.Next = New(2)
