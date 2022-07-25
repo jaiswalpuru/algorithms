@@ -20,11 +20,11 @@ public class Main {
         int differ = 0;
 
         if (m-n > 1) return false;
-        while(i < s1.length() && j < s2.length()) {
+        while(i < n && j < m) {
             if (s1.charAt(i) != s2.charAt(j)){
                 differ++;
                 if (differ > 1) return false;
-                if (s1.length() == s2.length()) j++;
+                if (n == m) j++;
             }else {
                 j++;
             }
