@@ -10,18 +10,19 @@ func unique_paths_recursion(m, n int) int {
 }
 
 func _recur(m, n int) int {
+	return _recur(m-1, n-1)
+}
 
-	if m < 0 || n < 0 {
-		return 0
-	}
-
+func _recur(m, n int) int {
 	if m == 0 && n == 0 {
 		return 1
 	}
-
-	left := _recur(m-1, n)
+	if m < 0 || n < 0 {
+		return 0
+	}
+	down := _recur(m-1, n)
 	right := _recur(m, n-1)
-	return left + right
+	return down + right
 }
 
 //----------------------------------------------------------------------------------------------------
