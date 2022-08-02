@@ -3,7 +3,9 @@ package main
 import (
 	"container/heap"
 	"fmt"
+	"math/rand"
 	"sort"
+	"time"
 )
 
 //using heaps in go for using inbuilt max heaps we need to first define some functions which satisfies the interface
@@ -45,6 +47,10 @@ func largest_kth_ele(arr []int, k int) int {
 //---------------------------------using quick select approach----------------
 //considering the 0th index element as the pivot
 func partition(arr []int) int {
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	j := r1.Intn(len(arr))
+	arr[0], arr[j] = arr[j], arr[0]
 	l, r := 0, len(arr)-1
 	for l < r {
 		if arr[l] >= arr[l+1] {
