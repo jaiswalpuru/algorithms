@@ -7,11 +7,14 @@ import (
 
 func lis(arr []int) int {
 	n := len(arr)
-	dp := make([]int, n)
-	for i := 0; i < n; i++ {
-		dp[i] = -1
+	memo := make([][]int, n+1)
+	for i := 0; i <= n; i++ {
+		memo[i] = make([]int, n+1)
+		for j := 0; j <= n; j++ {
+			memo[i][j] = -1
+		}
 	}
-	return lis_dp_memo(arr, &dp, n-1)
+	return _memo(arr, 0, -1, n, &memo)
 }
 
 //recursive solution
@@ -31,24 +34,20 @@ func _lis(arr []int, start int, prev int) int {
 }
 
 //dp with memoization
-func lis_dp_memo(arr []int, dp *[]int, i int) int {
-	if (*dp)[i] != -1 {
-		return (*dp)[i]
+func _memo(arr []int, ind, prev, n int, memo *[][]int) int {
+	if ind == n {
+		return 0
 	}
-
-	if i == 0 {
-		(*dp)[i] = 1
-		return (*dp)[i]
+	if (*memo)[ind][prev+1] != -1 {
+		return (*memo)[ind][prev+1]
 	}
-
-	longest := 1
-	for j := 0; j < i; j++ {
-		if arr[i] > arr[j] {
-			longest = max(longest, 1+lis_dp_memo(arr, dp, j))
-		}
+	exclude := _memo(arr, ind+1, prev, n, memo)
+	include := 0
+	if prev == -1 || arr[ind] > arr[prev] {
+		include = max(include, 1+_memo(arr, ind+1, ind, n, memo))
 	}
-	(*dp)[i] = longest
-	return (*dp)[i]
+	(*memo)[ind][prev+1] = max(include, exclude)
+	return (*memo)[ind][prev+1]
 }
 
 //pure dp solution
@@ -77,5 +76,5 @@ func max(a, b int) int {
 }
 
 func main() {
-	fmt.Println(lis([]int{10, 9, 2, 5, 3, 7, 101, 18}))
+	fmt.Println(lis([]int{1, 3, 6, 7, 9, 4, 10, 5, 6}))
 }
