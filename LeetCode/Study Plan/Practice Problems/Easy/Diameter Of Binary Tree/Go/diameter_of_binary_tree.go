@@ -18,26 +18,18 @@ func max(a, b int) int {
 func New(val int) *TreeNode { return &TreeNode{Val: val, Left: nil, Right: nil} }
 
 func diameter_of_binary_tree(root *TreeNode) int {
-	return _diameter(root)
+	diameter := 0
+	_diameter(root, &diameter)
+	return diameter
 }
 
-func _diameter(root *TreeNode) int {
+func _diameter(root *TreeNode, diameter *int) int {
 	if root == nil {
 		return 0
 	}
-	l_ht := height(root.Left)
-	r_ht := height(root.Right)
-	left := _diameter(root.Left)
-	right := _diameter(root.Right)
-	return max(l_ht+r_ht, max(left, right))
-}
-
-func height(root *TreeNode) int {
-	if root == nil {
-		return 0
-	}
-	l := height(root.Left)
-	r := height(root.Right)
+	l := _diameter(root.Left, diameter)
+	r := _diameter(root.Right, diameter)
+	*diameter = max(*diameter, l+r)
 	return 1 + max(l, r)
 }
 
