@@ -5,52 +5,40 @@ import (
 	"sort"
 )
 
-func find(arr []int) []int {
-	n := len(arr)
-	if n%2 != 0 {
-		return []int{}
-	}
-
+func find(changed []int) []int {
 	res := []int{}
-
-	original_val := make(map[int]int)
-
-	for i := 0; i < n; i++ {
-		original_val[arr[i]]++
+	n := len(changed)
+	if n%2 != 0 {
+		return res
 	}
-	fmt.Println(original_val)
-
-	sort.Ints(arr)
+	hash_map := make(map[int]int)
 	for i := 0; i < n; i++ {
-		if arr[i] == 0 {
-			if original_val[arr[i]] >= 2 {
-				original_val[arr[i]] -= 2
-				res = append(res, arr[i])
-				if original_val[arr[i]] == 0 {
-					delete(original_val, arr[i])
-				}
-			} else {
-				return []int{}
+		hash_map[changed[i]]++
+	}
+	sort.Ints(changed)
+	for i := 0; i < n; i++ {
+		val := changed[i]
+		if _, ok := hash_map[val]; ok {
+			hash_map[val]--
+			if hash_map[val] == 0 {
+				delete(hash_map, val)
 			}
-		} else {
-			v1, k1 := original_val[arr[i]]
-			v2, k2 := original_val[arr[i]*2]
-			if k1 && k2 {
-				res = append(res, arr[i])
-				original_val[arr[i]] = v1 - 1
-				original_val[arr[i]*2] = v2 - 1
-				if v1-1 == 0 {
-					delete(original_val, arr[i])
+			val = val * 2
+			if _, ok := hash_map[val]; ok {
+				hash_map[val]--
+				if hash_map[val] == 0 {
+					delete(hash_map, val)
 				}
-				if v2-1 == 0 {
-					delete(original_val, arr[i]*2)
-				}
+				res = append(res, val/2)
 			}
 		}
 	}
-	return res
+	if len(res) == len(changed)/2 {
+		return res
+	}
+	return nil
 }
 
 func main() {
-	fmt.Println(find([]int{6, 3, 0, 1}))
+	fmt.Println(find([]int{1, 2, 3, 6, 4, 8}))
 }
