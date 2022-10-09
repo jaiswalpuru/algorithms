@@ -10,25 +10,20 @@ type TreeNode struct {
 
 func New(val int) *TreeNode { return &TreeNode{Val: val, Left: nil, Right: nil} }
 
-func inorder(root *TreeNode, mp *map[int]struct{}, k int, flag *bool) {
-	if root == nil {
-		return
-	}
-	inorder(root.Left, mp, k, flag)
-	if _, ok := (*mp)[k-root.Val]; ok {
-		*flag = true
-		return
-	} else {
-		(*mp)[root.Val] = struct{}{}
-	}
-	inorder(root.Right, mp, k, flag)
+func two_sum(root *TreeNode, k int) bool {
+	seen := make(map[int]bool)
+	return inorder(root, &seen, k)
 }
 
-func two_sum(root *TreeNode, k int) bool {
-	mp := make(map[int]struct{})
-	flag := false
-	inorder(root, &mp, k, &flag)
-	return flag
+func inorder(root *TreeNode, seen *map[int]bool, k int) bool {
+	if root == nil {
+		return false
+	}
+	if (*seen)[k-root.Val] {
+		return true
+	}
+	(*seen)[root.Val] = true
+	return inorder(root.Left, seen, k) || inorder(root.Right, seen, k)
 }
 
 func main() {
