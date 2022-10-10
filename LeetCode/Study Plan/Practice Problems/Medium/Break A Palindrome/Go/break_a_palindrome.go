@@ -4,46 +4,20 @@ import (
 	"fmt"
 )
 
-func break_a_palindrome(str string) string {
-	if len(str) == 1 {
+func break_a_palindrome(palindrome string) string {
+	n := len(palindrome)
+	if n == 1 {
 		return ""
 	}
-
-	f := false
-	n := len(str)
-	byte_str := []byte(str)
-	if n%2 == 1 {
-		for i := 0; i < n/2; i++ {
-			if byte_str[i] != 'a' {
-				byte_str[i] = 'a'
-				f = true
-				break
-			}
-		}
-		if !f {
-			for i := n/2 + 1; i < n; i++ {
-				if byte_str[i] != 'a' {
-					byte_str[i] = 'a'
-					f = true
-					break
-				}
-			}
-		}
-	} else {
-		for i := 0; i < n; i++ {
-			if byte_str[i] != 'a' {
-				f = true
-				byte_str[i] = 'a'
-				break
-			}
+	str := []byte(palindrome)
+	for i := 0; i < n/2; i++ {
+		if str[i] != 'a' {
+			str[i] = 'a'
+			return string(str)
 		}
 	}
-
-	if f {
-		return string(byte_str)
-	}
-	byte_str[len(byte_str)-1] = 'b'
-	return string(byte_str)
+	str[n-1] = 'b'
+	return string(str)
 }
 
 func main() {
