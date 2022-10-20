@@ -75,7 +75,7 @@ func _memo(intervals [][]int, start int, memo *[]int) int {
 
 //--------------------memoization----------------------------
 
-//--------------------memoization eff----------------------------
+//--------------------memoization greedy----------------------------
 func non_overlapping_intervals_greedy(intervals [][]int) int {
 	sort.Slice(intervals, func(i, j int) bool { return intervals[i][1] < intervals[j][1] })
 	prev := 0
@@ -93,7 +93,7 @@ func non_overlapping_intervals_greedy(intervals [][]int) int {
 	return cnt
 }
 
-//--------------------memoization eff----------------------------
+//--------------------memoization greedy----------------------------
 
 func min(a, b int) int {
 	if a > b {
