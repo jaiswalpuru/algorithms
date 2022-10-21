@@ -1,46 +1,43 @@
 package main
 
-import ("fmt"; "sort"; "container/heap")
+import (
+	"container/heap"
+	"fmt"
+	"sort"
+)
 
-type P []int
-func (p P) Len()int {return len(p)}
-func (p P) Less(i,j int) bool {return p[i]<p[j]}
-func (p P) Swap(i,j int) {p[i],p[j] = p[j],p[i]}
-func (p *P) Push(val interface{}) {*p = append(*p, val.(int))}
-func (p *P) Pop() interface{} {
-	v := (*p)[len(*p)-1]
-	*p = (*p)[:len(*p)-1]
-	return v
-}
+type I []int
 
-type I [][]int
-func (a I)Len() int {return len(a)}
-func  (a I) Less(i,j int) bool {
-	return a[i][0] < a[j][0]
+func (a I) Len() int              { return len(a) }
+func (a I) Swap(i, j int)         { a[i], a[j] = a[j], a[i] }
+func (a I) Less(i, j int) bool    { return a[i] < a[j] }
+func (a *I) Push(val interface{}) { *a = append(*a, val.(int)) }
+func (a *I) Pop() interface{} {
+	val := (*a)[len(*a)-1]
+	*a = (*a)[:len(*a)-1]
+	return val
 }
-func (a I) Swap(i,j int) {a[i],a[j] = a[j],a[i]}
 
 func meeting_rooms_two(arr [][]int) int {
-	var a I
-	a = arr
-	sort.Sort(a)
+	sort.Slice(arr, func(i, j int) bool {
+		return arr[i][0] < arr[j][0]
+	})
 
-	mh := &P{}
-
+	mh := &I{}
+	n := len(arr)
 	rooms := 1
-	heap.Push(mh, a[0][1])
-	for i:=1; i<a.Len(); i++{
+	heap.Push(mh, arr[0][1])
+	for i := 1; i < n; i++ {
 		val := heap.Pop(mh).(int)
-		if val > a[i][0] {
+		if val > arr[i][0] {
 			rooms++
 			heap.Push(mh, val)
 		}
-		heap.Push(mh, a[i][1])
+		heap.Push(mh, arr[i][1])
 	}
-
 	return rooms
 }
 
 func main() {
-	fmt.Println(meeting_rooms_two([][]int{{0,30}, {5,10}, {15,20}}))
+	fmt.Println(meeting_rooms_two([][]int{{0, 30}, {5, 10}, {15, 20}}))
 }
