@@ -2,18 +2,17 @@ package main
 
 import "fmt"
 
-
 type Trie struct {
 	children [26]*Trie
-	word string
+	word     string
 }
 
-func New() *Trie {return &Trie{} }
+func New() *Trie { return &Trie{} }
 
 func (this *Trie) Insert(word string) {
 	root := this
 	for _, ch := range word {
-		index := ch-'a'
+		index := ch - 'a'
 		if root.children[index] == nil {
 			root.children[index] = &Trie{}
 		}
@@ -25,21 +24,27 @@ func (this *Trie) Insert(word string) {
 //----------------------------backtrack brute force way (TLE)------------------------------------------
 func word_search_brute(grid [][]byte, words []string) []string {
 	res := []string{}
-	n,m := len(grid), len(grid[0])
+	n, m := len(grid), len(grid[0])
 
 	visited := make([][]bool, n)
-	for i:=0; i<n; i++ {
+	for i := 0; i < n; i++ {
 		visited[i] = make([]bool, m)
 	}
 
 	for _, word := range words {
-		for i:=0; i<n; i++ {
-			for j:=0; j<m ;j++ {
+		f := false
+		for i := 0; i < n; i++ {
+			for j := 0; j < m; j++ {
 				if grid[i][j] == word[0] {
 					if _dfs(grid, word, i, j, 0, &visited) {
 						res = append(res, word)
+						f = true
+						break
 					}
 				}
+			}
+			if f {
+				break
 			}
 		}
 	}
@@ -48,12 +53,12 @@ func word_search_brute(grid [][]byte, words []string) []string {
 }
 
 func _dfs(grid [][]byte, word string, i, j, k int, visited *[][]bool) bool {
-	
+
 	if k == len(word) {
 		return true
 	}
 
-	if i<0 || j<0 || i>=len(grid) || j>=len(grid[0]) || (*visited)[i][j] {
+	if i < 0 || j < 0 || i >= len(grid) || j >= len(grid[0]) || (*visited)[i][j] {
 		return false
 	}
 
@@ -67,15 +72,16 @@ func _dfs(grid [][]byte, word string, i, j, k int, visited *[][]bool) bool {
 	return res
 
 }
+
 //------------------------------------------------------------------------------------
 
 //---------------------------------------optimized---------------------------------------------
 func word_search(grid [][]byte, words []string) []string {
 	res := []string{}
-	n,m := len(grid), len(grid[0])
+	n, m := len(grid), len(grid[0])
 
 	visited := make([][]bool, n)
-	for i:=0; i<n; i++ {
+	for i := 0; i < n; i++ {
 		visited[i] = make([]bool, m)
 	}
 
@@ -84,8 +90,8 @@ func word_search(grid [][]byte, words []string) []string {
 		trie.Insert(word)
 	}
 
-	for i:=0; i<n; i++ {
-		for j:=0; j<m; j++ {
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
 			dfs(grid, trie, i, j, &res, &visited)
 		}
 	}
@@ -93,17 +99,17 @@ func word_search(grid [][]byte, words []string) []string {
 	return res
 }
 
-func dfs(grid [][]byte, root *Trie, i,j int, res *[]string, visited *[][]bool) {
-	if i<0 || j<0 || i>=len(grid) || j >= len(grid[0]) || (*visited)[i][j] {
+func dfs(grid [][]byte, root *Trie, i, j int, res *[]string, visited *[][]bool) {
+	if i < 0 || j < 0 || i >= len(grid) || j >= len(grid[0]) || (*visited)[i][j] {
 		return
 	}
 
 	temp := grid[i][j]
 	if root.children[temp-'a'] == nil {
-		return 
+		return
 	}
 
-	root = root.children[temp - 'a']
+	root = root.children[temp-'a']
 	if len(root.word) > 0 {
 		*res = append(*res, root.word)
 		root.word = ""
@@ -121,9 +127,9 @@ func dfs(grid [][]byte, root *Trie, i,j int, res *[]string, visited *[][]bool) {
 
 func main() {
 	fmt.Println(word_search([][]byte{
-		{'o','a','a','n'}, 
-		{'e','t','a','e'}, 
-		{'i','h','k','r'}, 
-		{'i','f','l','v'},
-	},[]string{"oath", "pea", "eat", "rain"}))
+		{'o', 'a', 'a', 'n'},
+		{'e', 't', 'a', 'e'},
+		{'i', 'h', 'k', 'r'},
+		{'i', 'f', 'l', 'v'},
+	}, []string{"oath", "pea", "eat", "rain"}))
 }
