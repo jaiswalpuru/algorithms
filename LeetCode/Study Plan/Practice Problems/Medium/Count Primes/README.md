@@ -18,9 +18,8 @@ Example 3:
 
 Input: n = 1
 Output: 0
- 
 
 Constraints:
 
-0 <= n <= 5 * 106
+0 <= n <= 5 * 10^6
 ```
