@@ -18,11 +18,13 @@ Output: true
 Explanation: You can attain word2 from word1 in 2 operations.
 Apply Operation 1: "abc" -> "acb"
 Apply Operation 1: "acb" -> "bca"
+
 Example 2:
 
 Input: word1 = "a", word2 = "aa"
 Output: false
 Explanation: It is impossible to attain word2 from word1, or vice versa, in any number of operations.
+
 Example 3:
 
 Input: word1 = "cabbba", word2 = "abbccc"
@@ -34,6 +36,6 @@ Apply Operation 2: "baaccc" -> "abbccc"
 
 Constraints:
 
-1 <= word1.length, word2.length <= 105
+1 <= word1.length, word2.length <= 10^5
 word1 and word2 contain only lowercase English letters.
 ```
