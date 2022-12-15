@@ -46,7 +46,6 @@ func _recur(sb []byte, res *[]string, ind int) {
 		sb[i], sb[ind] = sb[ind], sb[i]
 		_recur(sb, res, ind+1)
 		sb[i], sb[ind] = sb[ind], sb[i]
-
 	}
 }
 
