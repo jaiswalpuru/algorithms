@@ -4,12 +4,11 @@ import "fmt"
 
 func parens(n int) []string {
 	res := []string{}
-	s := make([]byte, n*2)
-	recur(n, n, s, &res, 0)
+	recur(n, n, []byte{}, &res)
 	return res
 }
 
-func recur(n, m int, set []byte, res *[]string, ind int) {
+func recur(n, m int, set []byte, res *[]string) {
 	if n < 0 || m < n {
 		return
 	}
@@ -17,10 +16,11 @@ func recur(n, m int, set []byte, res *[]string, ind int) {
 		*res = append(*res, string(set))
 		return
 	}
-	set[ind] = '('
-	recur(n-1, m, set, res, ind+1)
-	set[ind] = ')'
-	recur(n, m-1, set, res, ind+1)
+	set = append(set, '(')
+	recur(n-1, m, set, res)
+	set = set[:len(set)-1]
+	set = append(set, ')')
+	recur(n, m-1, set, res)
 }
 
 func main() {
