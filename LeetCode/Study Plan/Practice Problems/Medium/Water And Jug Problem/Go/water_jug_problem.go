@@ -9,9 +9,6 @@ func water_jug_problem(j1, j2, target int) bool {
 	if j1+j2 < target {
 		return false
 	}
-	if j1 > j2 {
-		j1, j2 = j2, j1
-	}
 	visited := make(map[string]bool)
 	q := []Pair{{0, 0}}
 	for len(q) > 0 {
