@@ -11,35 +11,31 @@ type Node struct {
 func New(val int) *Node { return &Node{Val: val, Next: nil, Random: nil} }
 
 //------------------------------------using iterative----------------------------------------------
-func get_clone(node *Node, visited *map[*Node]*Node) *Node {
+func get_clone(node *Node, mp *map[*Node]*Node) *Node {
 	if node == nil {
 		return nil
 	}
-	if _, ok := (*visited)[node]; !ok {
-		(*visited)[node] = New(node.Val)
+	if _, ok := (*mp)[node]; !ok {
+		(*mp)[node] = New(node.Val)
 	}
-	return (*visited)[node]
+	return (*mp)[node]
 }
 
 func deep_copy(head *Node) *Node {
 	if head == nil {
 		return nil
 	}
-
-	old_node := head
-
-	new_node := New(old_node.Val)
-	visited := make(map[*Node]*Node)
-	visited[old_node] = new_node
-
-	for old_node != nil {
-		new_node.Random = get_clone(old_node.Random, &visited)
-		new_node.Next = get_clone(old_node.Next, &visited)
-		old_node = old_node.Next
+	temp := head
+	mp := make(map[*Node]*Node)
+	new_node := New(temp.Val)
+	mp[temp] = new_node
+	for temp != nil {
+		new_node.Random = get_clone(temp.Random, &mp)
+		new_node.Next = get_clone(temp.Next, &mp)
+		temp = temp.Next
 		new_node = new_node.Next
 	}
-
-	return visited[head]
+	return mp[head]
 }
 
 //------------------------------------using iterative----------------------------------------------
