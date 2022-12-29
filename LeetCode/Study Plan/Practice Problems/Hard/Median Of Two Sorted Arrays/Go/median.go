@@ -50,48 +50,37 @@ func median(a, b []int) float64 {
 	if len(a) > len(b) {
 		return median(b, a)
 	}
-
 	n, m := len(a), len(b)
-	l, h := 0, n
-
-	for l <= h {
-		cut1 := (l + h) / 2
-		cut2 := (n+m+1)/2 - cut1
-		var left1, left2, right1, right2 int
-
-		if cut1 == 0 {
-			left1 = math.MinInt64
-		} else {
-			left1 = a[cut1-1]
+	total := n + m
+	half := (total + 1) / 2
+	l, r := 0, n-1
+	for {
+		la := (l + r) >> 1  //left partition of a
+		lb := half - la - 2 //left partition of b (-2 because of 0 zero indexing)
+		a_left, a_right := math.MinInt64, math.MaxInt64
+		b_left, b_right := math.MinInt64, math.MaxInt64
+		if la >= 0 {
+			a_left = a[la]
 		}
-		if cut2 == 0 {
-			left2 = math.MinInt64
-		} else {
-			left2 = b[cut2-1]
+		if la+1 < n {
+			a_right = a[la+1]
 		}
-
-		if cut1 == n {
-			right1 = math.MaxInt64
-		} else {
-			right1 = a[cut1]
+		if lb >= 0 {
+			b_left = b[lb]
 		}
-
-		if cut2 == m {
-			right2 = math.MaxInt64
-		} else {
-			right2 = b[cut2]
+		if lb+1 < m {
+			b_right = b[lb+1]
 		}
-
-		if left1 <= right2 && left2 <= right1 {
-			if (n+m)%2 == 0 {
-				return float64(max(left1, left2)+min(right1, right2)) / 2
-			} else {
-				return float64(max(left1, left2))
+		if a_left <= b_right && b_left <= a_right {
+			if total%2 == 0 {
+				return float64((max(a_left, b_left) + min(a_right, b_right))) / 2
 			}
-		} else if left1 > right2 {
-			h = cut1 - 1
+			return float64(max(a_left, b_left))
+
+		} else if a_left > b_right {
+			r = la - 1
 		} else {
-			l = cut1 + 1
+			l = la + 1
 		}
 	}
 	return 0
