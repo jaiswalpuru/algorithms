@@ -6,34 +6,30 @@ import (
 )
 
 //---------------------two pointers approach--------------------------
-func three_sum(arr []int) [][]int {
-	n := len(arr)
-	sort.Ints(arr)
+func three_sum(nums []int) [][]int {
+	sort.Ints(nums)
 	res := [][]int{}
-	for i := 0; i < n && arr[i] <= 0; i++ {
-		if i == 0 || arr[i] != arr[i-1] {
-			val := two_sum(arr, i)
-			res = append(res, val...)
+	for i := 0; i < len(nums); i++ {
+		if i == 0 || nums[i] != nums[i-1] {
+			res = append(res, two_sum(nums, i)...)
 		}
 	}
 	return res
 }
 
-func two_sum(arr []int, cur_ind int) [][]int {
-	i, j := cur_ind+1, len(arr)-1
+func two_sum(nums []int, ind int) [][]int {
+	i, j := ind+1, len(nums)-1
 	res := [][]int{}
 	for i < j {
-		val := arr[i] + arr[j] + arr[cur_ind]
-		if val == 0 {
-			if cur_ind != i && cur_ind != j {
-				res = append(res, []int{arr[cur_ind], arr[i], arr[j]})
-			}
+		sum := nums[i] + nums[j] + nums[ind]
+		if sum == 0 {
+			res = append(res, []int{nums[ind], nums[i], nums[j]})
 			i++
 			j--
-			for i < j && arr[i] == arr[i-1] {
+			for i < j && nums[i] == nums[i-1] {
 				i++
 			}
-		} else if val < 0 {
+		} else if sum < 0 {
 			i++
 		} else {
 			j--
