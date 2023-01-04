@@ -2,21 +2,23 @@ package main
 
 import "fmt"
 
-func minimum_rounds_to_complete_all_tasks(arr []int) int {
-	hash_map := make(map[int]int)
-	n := len(arr)
-	for i := 0; i < n; i++ {
-		hash_map[arr[i]]++
+func minimum_rounds_to_complete_all_tasks(tasks []int) int {
+	freq := make(map[int]int)
+	for i := 0; i < len(tasks); i++ {
+		freq[tasks[i]]++
 	}
-
-	res := 0
-	for _, v := range hash_map {
+	rounds := 0
+	for _, v := range freq {
 		if v == 1 {
 			return -1
 		}
-		res += (v + 2) / 3
+		if v%3 == 0 {
+			rounds += v / 3
+		} else {
+			rounds += (v / 3) + 1
+		}
 	}
-	return res
+	return rounds
 }
 
 func main() {
