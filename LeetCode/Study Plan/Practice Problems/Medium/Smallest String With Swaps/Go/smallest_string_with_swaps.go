@@ -1,7 +1,64 @@
 package main
 
-import "fmt"
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
+
+//------------------union find-----------------
+func smallest_string_with_swaps_union_find(s string, pairs [][]int) string {
+	parent := make([]int, len(s))
+	size := make([]int, len(s))
+	for i := 0; i < len(s); i++ {
+		parent[i] = i
+		size[i] = 1
+	}
+	for i := 0; i < len(pairs); i++ {
+		curr := pairs[i]
+		union(curr[0], curr[1], &parent, &size)
+	}
+	group := make(map[int][]int)
+	for i := 0; i < len(parent); i++ {
+		g := find(i, &parent)
+		group[g] = append(group[g], i)
+	}
+	res := make([]byte, len(s))
+	for _, v := range group {
+		st := []byte{}
+		for i := 0; i < len(v); i++ {
+			st = append(st, s[v[i]])
+		}
+		sort.Slice(st, func(i, j int) bool { return st[i] < st[j] })
+		for i := 0; i < len(v); i++ {
+			res[v[i]] = st[i]
+		}
+	}
+	return string(res)
+}
+
+func find(x int, parent *[]int) int {
+	if x != (*parent)[x] {
+		(*parent)[x] = find((*parent)[x], parent)
+	}
+	return (*parent)[x]
+}
+
+func union(x, y int, parent *[]int, size *[]int) {
+	x = find(x, parent)
+	y = find(y, parent)
+	if x == y {
+		return
+	}
+	if (*size)[x] >= (*size)[y] {
+		(*size)[x] += (*size)[y]
+		(*parent)[y] = x
+	} else {
+		(*size)[y] += (*size)[x]
+		(*parent)[x] = y
+	}
+}
+
+//------------------union find-----------------
 
 func make_graph(edges [][]int) map[int][]int {
 	n := len(edges)
