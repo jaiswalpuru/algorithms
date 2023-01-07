@@ -2,6 +2,60 @@ package main
 
 import "fmt"
 
+//-----------------------------union find------------------------------------
+type Pair struct {
+	node string
+	val  float64
+}
+
+func evaluate_dvision_union_find(equations [][]string, values []float64, queries [][]string) []float64 {
+	parent := make(map[string]Pair)
+	for i := 0; i < len(equations); i++ {
+		union(equations[i][0], equations[i][1], values[i], &parent)
+	}
+	res := make([]float64, len(queries))
+	for i := 0; i < len(queries); i++ {
+		a, b := queries[i][0], queries[i][1]
+		_, ok_a := parent[a]
+		_, ok_b := parent[b]
+		if !ok_a || !ok_b {
+			res[i] = -1.0
+		} else {
+			p_a := find(a, &parent)
+			p_b := find(b, &parent)
+			if p_a.node != p_b.node {
+				res[i] = -1.0
+			} else {
+				res[i] = p_a.val / p_b.val
+			}
+		}
+	}
+	return res
+}
+
+func union(a, b string, value float64, parent *map[string]Pair) {
+	dividend := find(a, parent)
+	divisor := find(b, parent)
+	if dividend.node != divisor.node {
+		(*parent)[dividend.node] = Pair{divisor.node, divisor.val * value / dividend.val}
+	}
+}
+
+func find(s string, parent *map[string]Pair) Pair {
+	if _, ok := (*parent)[s]; !ok {
+		(*parent)[s] = Pair{s, 1.0}
+	}
+	p := (*parent)[s]
+	if p.node != s {
+		pair := find(p.node, parent)
+		(*parent)[s] = Pair{pair.node, p.val * pair.val}
+	}
+	return (*parent)[s]
+
+}
+
+//-----------------------------union find------------------------------------
+
 func make_graph(edges [][]string, values []float64) (map[string]map[string]float64, map[string]bool) {
 	graph := make(map[string]map[string]float64)
 	visited := make(map[string]bool)
