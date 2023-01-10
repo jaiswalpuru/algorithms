@@ -4,39 +4,46 @@ import (
 	"fmt"
 )
 
-func make_graph(edges [][]int) map[int][]int {
-	vertices := make(map[int][]int)
-	n := len(edges)
-	for i := 0; i < n; i++ {
-		vertices[edges[i][0]] = append(vertices[edges[i][0]], edges[i][1])
+//1 -> GRAY (backward edge, which tells this is a loop)
+//2 -> BLACK
+var (
+	WHITE = -1
+	GRAY  = 1
+	BLACK = 2
+)
+
+func all_path(n int, edges [][]int, src int, dest int) bool {
+	g := make_graph(edges)
+	color := make([]int, n)
+	for i := 0; i < len(color); i++ {
+		color[i] = WHITE
 	}
-	return vertices
+	return dfs(src, dest, &color, g)
 }
 
-func dfs(src, dst int, visited *[]bool, edge_map map[int][]int) bool {
-	if len(edge_map[src]) == 0 {
-		if src == dst {
-			return true
-		}
-		return false
+func dfs(src, dst int, color *[]int, g map[int][]int) bool {
+	if (*color)[src] != WHITE {
+		return (*color)[src] == BLACK
 	}
-
-	(*visited)[src] = true
-	for i := 0; i < len(edge_map[src]); i++ {
-		if (*visited)[edge_map[src][i]] || !dfs(edge_map[src][i], dst, visited, edge_map) {
+	if len(g[src]) == 0 {
+		return src == dst
+	}
+	(*color)[src] = GRAY
+	for i := 0; i < len(g[src]); i++ {
+		if !dfs(g[src][i], dst, color, g) {
 			return false
 		}
-		(*visited)[edge_map[src][i]] = false
 	}
+	(*color)[src] = BLACK
 	return true
 }
 
-func all_path(n int, edges [][]int, src int, dest int) bool {
-	edge_map := make_graph(edges)
-
-	visited := make([]bool, n)
-
-	return dfs(src, dest, &visited, edge_map)
+func make_graph(edges [][]int) map[int][]int {
+	vertices := make(map[int][]int)
+	for i := 0; i < len(edges); i++ {
+		vertices[edges[i][0]] = append(vertices[edges[i][0]], edges[i][1])
+	}
+	return vertices
 }
 
 func main() {

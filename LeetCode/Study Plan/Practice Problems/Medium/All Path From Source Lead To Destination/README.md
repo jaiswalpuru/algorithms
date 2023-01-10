@@ -27,8 +27,8 @@ Output: true
 
 Constraints:
 
-1 <= n <= 104
-0 <= edges.length <= 104
+1 <= n <= 10^4
+0 <= edges.length <= 10^4
 edges.length == 2
 0 <= ai, bi <= n - 1
 0 <= source <= n - 1
