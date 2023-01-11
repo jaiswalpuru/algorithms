@@ -15,6 +15,9 @@ import "fmt"
 			and atmost one vertex has in-out=1
 			and all other vertex have equal in and
 			out degrees.
+
+
+		If eulerian path exists then this can also be solved with backtracking technique
 */
 
 func make_graph(edges [][]int) map[int][]int {
