@@ -2,31 +2,35 @@ package main
 
 import "fmt"
 
+//-------------------using dfs-----------------------------------
 func minimum_time_to_collect_apples_in_tree(n int, edges [][]int, has_apple []bool) int {
-	graph := make(map[int][]int)
-	m := len(edges)
-	for i := 0; i < m; i++ {
-		graph[edges[i][0]] = append(graph[edges[i][0]], edges[i][1])
-		graph[edges[i][1]] = append(graph[edges[i][1]], edges[i][0])
-	}
-
-	return dfs(graph, 0, -1, has_apple) * 2 //basically post order
+	g := make_graph(edges)
+	return dfs(g, 0, -1, has_apple) * 2
 }
 
-func dfs(graph map[int][]int, curr, parent int, has_apple []bool) int {
+func dfs(g map[int][]int, src, parent int, has_apple []bool) int {
 	sum := 0
-	for i := 0; i < len(graph[curr]); i++ {
-		if graph[curr][i] == parent {
-			continue
+	for i := 0; i < len(g[src]); i++ {
+		if g[src][i] != parent {
+			sum += dfs(g, g[src][i], src, has_apple)
 		}
-		sum += dfs(graph, graph[curr][i], curr, has_apple)
 	}
-
-	if curr != 0 && (sum > 0 || has_apple[curr]) {
+	if src != 0 && (sum > 0 || has_apple[src]) {
 		return sum + 1
 	}
 	return sum
 }
+
+func make_graph(edges [][]int) map[int][]int {
+	g := make(map[int][]int)
+	for i := 0; i < len(edges); i++ {
+		g[edges[i][0]] = append(g[edges[i][0]], edges[i][1])
+		g[edges[i][1]] = append(g[edges[i][1]], edges[i][0])
+	}
+	return g
+}
+
+//-------------------using dfs-----------------------------------
 
 func main() {
 	fmt.Println(minimum_time_to_collect_apples_in_tree(7, [][]int{
