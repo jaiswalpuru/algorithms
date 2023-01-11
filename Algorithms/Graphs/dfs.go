@@ -49,14 +49,13 @@ func dfs(edges [][]int, n int) {
 			_dfs(nodes[i], &nodes, graph, &color, &time)
 		}
 	}
-	fmt.Println()
+	fmt.Printf("%+v\n", nodes)
 }
 
 func _dfs(u Node, nodes *[]Node, g map[int][]Node, color *[]int, time *int) {
 	*time += 1
 	(*color)[u.v] = GRAY
 	u.disc_time = *time
-	fmt.Print(u.v, " ")
 	for v := 0; v < len(g[u.v]); v++ {
 		if (*color)[g[u.v][v].v] == WHITE {
 			_dfs(g[u.v][v], nodes, g, color, time)
@@ -64,7 +63,7 @@ func _dfs(u Node, nodes *[]Node, g map[int][]Node, color *[]int, time *int) {
 	}
 	*time += 1
 	u.finish_time = *time
-	fmt.Println(u)
+	(*nodes)[u.v] = u
 	(*color)[u.v] = BLACK
 }
 
