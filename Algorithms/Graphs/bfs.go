@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-var (
+const (
 	WHITE = -1
 	GRAY  = 1
 	BLACK = 2
