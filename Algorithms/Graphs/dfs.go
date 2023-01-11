@@ -12,7 +12,7 @@ import "fmt"
 	Assuming n == len(edges) and the graph is connected
 */
 
-var (
+const (
 	WHITE = -1
 	GRAY  = 1
 	BLACK = 2
