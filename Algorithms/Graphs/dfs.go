@@ -18,11 +18,17 @@ const (
 	BLACK = 2
 )
 
-func make_graph(edges [][]int) map[int][]int {
-	graph := make(map[int][]int)
+type Node struct {
+	v           int
+	disc_time   int
+	finish_time int
+}
+
+func make_graph(edges [][]int) map[int][]Node {
+	graph := make(map[int][]Node)
 	for i := 0; i < len(edges); i++ {
-		graph[edges[i][0]] = append(graph[edges[i][0]], edges[i][1])
-		graph[edges[i][1]] = append(graph[edges[i][1]], edges[i][0])
+		graph[edges[i][0]] = append(graph[edges[i][0]], Node{v: edges[i][1]})
+		graph[edges[i][1]] = append(graph[edges[i][1]], Node{v: edges[i][0]})
 	}
 	return graph
 }
@@ -33,23 +39,33 @@ func dfs(edges [][]int, n int) {
 	for i := 0; i < n; i++ {
 		color[i] = WHITE
 	}
+	nodes := make([]Node, n)
+	for i := 0; i < n; i++ {
+		nodes[i].v = i
+	}
+	time := 0
 	for i := 0; i < n; i++ {
 		if color[i] == WHITE {
-			_dfs(i, graph, &color)
+			_dfs(nodes[i], &nodes, graph, &color, &time)
 		}
 	}
 	fmt.Println()
 }
 
-func _dfs(u int, g map[int][]int, color *[]int) {
-	(*color)[u] = GRAY
-	fmt.Print(u, " ")
-	for v := 0; v < len(g[u]); v++ {
-		if (*color)[g[u][v]] == WHITE {
-			_dfs(g[u][v], g, color)
+func _dfs(u Node, nodes *[]Node, g map[int][]Node, color *[]int, time *int) {
+	*time += 1
+	(*color)[u.v] = GRAY
+	u.disc_time = *time
+	fmt.Print(u.v, " ")
+	for v := 0; v < len(g[u.v]); v++ {
+		if (*color)[g[u.v][v].v] == WHITE {
+			_dfs(g[u.v][v], nodes, g, color, time)
 		}
 	}
-	(*color)[u] = BLACK
+	*time += 1
+	u.finish_time = *time
+	fmt.Println(u)
+	(*color)[u.v] = BLACK
 }
 
 /*
