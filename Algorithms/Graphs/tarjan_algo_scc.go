@@ -12,6 +12,10 @@ import "fmt"
 
 	Here I will be using discovery time instead
 	of id array for easy understanding.
+
+	Low link value of a node is the smallest
+	node which is reachable from that node including
+	the node itself.
 */
 
 //return the low link values
