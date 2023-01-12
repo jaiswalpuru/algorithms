@@ -17,6 +17,11 @@ func make_graph(edges [][]int) map[int][]int {
 	return g
 }
 
+/*
+	returns the transpose of graph
+	if u->v in G
+	the v->u in G^T
+*/
 func graph_transpose(g map[int][]int) map[int][]int {
 	transpose := make(map[int][]int)
 	for k, v := range g {
