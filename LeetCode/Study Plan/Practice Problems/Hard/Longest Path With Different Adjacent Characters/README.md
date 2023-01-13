@@ -23,7 +23,7 @@ Explanation: The longest path where each two adjacent nodes have different chara
 Constraints:
 
 n == parent.length == s.length
-1 <= n <= 105
+1 <= n <= 10^5
 0 <= parent[i] <= n - 1 for all i >= 1
 parent[0] == -1
 parent represents a valid tree.
