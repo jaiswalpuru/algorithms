@@ -31,12 +31,8 @@ func (mh *MinHeap) Pop() interface{} {
 //-----------this is using prims algorithm--------------
 func min_cost_to_connect_all_points(points [][]int) int {
 	mh := &MinHeap{}
-	for i := 1; i < len(points); i++ {
-		dis := manhattan_distance(points[0], points[i])
-		heap.Push(mh, Point{0, i, dis})
-	}
+	heap.Push(mh, Point{0, 0, 0})
 	visited := make([]bool, len(points))
-	visited[0] = true
 	cost := 0
 	conn := 0
 	for mh.Len() > 0 && conn < len(points) {
