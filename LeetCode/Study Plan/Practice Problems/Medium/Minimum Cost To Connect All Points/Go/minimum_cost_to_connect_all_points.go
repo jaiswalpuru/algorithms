@@ -50,6 +50,7 @@ func min_cost_to_connect_all_points(points [][]int) int {
 					heap.Push(mh, Point{curr.dst, i, dis})
 				}
 			}
+			conn++
 		}
 	}
 	return cost
