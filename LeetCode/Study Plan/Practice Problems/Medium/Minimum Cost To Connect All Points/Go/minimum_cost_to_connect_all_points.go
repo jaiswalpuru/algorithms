@@ -29,31 +29,30 @@ func (mh *MinHeap) Pop() interface{} {
 }
 
 //-----------this is using prims algorithm--------------
-func min_cost_to_connect_all_points(arr [][]int) int {
-	n := len(arr)
-	visited := make([]bool, n)
-	connected, min_cost := 0, 0
-	mh := &MinHeap{Point{0, 0, 0}}
-	for mh.Len() > 0 && connected < n {
+func min_cost_to_connect_all_points(points [][]int) int {
+	mh := &MinHeap{}
+	for i := 1; i < len(points); i++ {
+		dis := manhattan_distance(points[0], points[i])
+		heap.Push(mh, Point{0, i, dis})
+	}
+	visited := make([]bool, len(points))
+	visited[0] = true
+	cost := 0
+	conn := 0
+	for mh.Len() > 0 && conn < len(points) {
 		curr := heap.Pop(mh).(Point)
-		src, dst, dis := curr.src, curr.dst, curr.dis
-		if visited[src] && visited[dst] {
-			continue
-		}
-
-		min_cost += dis
-		i := dst
-		visited[i] = true
-		connected++
-		for j := 0; j < n; j++ {
-			if visited[j] {
-				continue
+		if !visited[curr.src] {
+			visited[curr.dst] = true
+			cost += curr.dis
+			for i := 0; i < len(points); i++ {
+				if !visited[i] {
+					dis := manhattan_distance(points[curr.dst], points[i])
+					heap.Push(mh, Point{curr.dst, i, dis})
+				}
 			}
-			cost := manhattan_distance(arr[i], arr[j])
-			heap.Push(mh, Point{i, j, cost})
 		}
 	}
-	return min_cost
+	return cost
 }
 
 //-----------this is using prims algorithm--------------
