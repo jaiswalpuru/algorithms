@@ -33,6 +33,9 @@ func dijkstra(g map[int][]Pair, src, n int) []int {
 	}
 	dis[src] = 0
 	dis[0] = -1
+	parent := make([]int, n+1)
+	parent[src] = -1
+	parent[0] = -1
 	visited := make([]bool, n+1)
 	mh := &P{}
 	heap.Push(mh, Pair{src, 0})
@@ -45,11 +48,13 @@ func dijkstra(g map[int][]Pair, src, n int) []int {
 		for i := 0; i < len(g[curr.v]); i++ {
 			node := g[curr.v][i]
 			if !visited[node.v] && dis[node.v] > node.wt+curr.wt {
+				parent[node.v] = curr.v
 				dis[node.v] = node.wt + curr.wt
 				heap.Push(mh, Pair{node.v, dis[node.v]})
 			}
 		}
 	}
+	fmt.Println("Parents for each node : ", parent)
 	return dis
 }
 
