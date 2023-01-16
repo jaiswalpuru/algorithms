@@ -6,6 +6,39 @@ import (
 	"math"
 )
 
+//-----------------------using bellman ford---------------------
+func cheapest_flights_within_k_stops_bellmand(n int, flights [][]int, src, dst, k int) int {
+	if src == dst {
+		return 0
+	}
+	prev := make([]int, n)
+	curr := make([]int, n)
+	for i := 0; i < n; i++ {
+		prev[i] = math.MaxInt64
+		curr[i] = math.MaxInt64
+	}
+	prev[src] = 0
+	for i := 0; i < k+1; i++ {
+		curr[src] = 0
+		for j := 0; j < len(flights); j++ {
+			from := flights[j][0]
+			to := flights[j][1]
+			cost := flights[j][2]
+			if prev[from] < math.MaxInt64 {
+				curr[to] = min(curr[to], prev[from]+cost)
+			}
+		}
+		prev = make([]int, n)
+		copy(prev, curr)
+	}
+	if curr[dst] == math.MaxInt64 {
+		return -1
+	}
+	return curr[dst]
+}
+
+//-----------------------using bellman ford---------------------
+
 type Pair struct {
 	next,
 	weight,
@@ -82,7 +115,7 @@ func min(a, b int) int {
 }
 
 func main() {
-	fmt.Println(cheapest_flights(4, [][]int{
+	fmt.Println(cheapest_flights_within_k_stops_bellmand(4, [][]int{
 		{0, 1, 1},
 		{0, 2, 5},
 		{1, 2, 1},
