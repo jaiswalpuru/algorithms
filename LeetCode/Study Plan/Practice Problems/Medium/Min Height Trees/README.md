@@ -22,7 +22,7 @@ Output: [3,4]
 
 Constraints:
 
-1 <= n <= 2 * 104
+1 <= n <= 2 * 10^4
 edges.length == n - 1
 0 <= ai, bi < n
 ai != bi

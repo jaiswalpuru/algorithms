@@ -57,7 +57,7 @@ func get_ht(start_node int, graph map[int][]int) int {
 	return ht
 }
 
-//--------------------------------------------------------------------------------------
+//----------------------------------using topological concept----------------------------------------------------
 func get_min_ht(n int, edges [][]int) []int {
 	graph := make([][]int, n)
 	degree := make([]int, n)
@@ -68,11 +68,9 @@ func get_min_ht(n int, edges [][]int) []int {
 		degree[edges[i][0]]++
 		degree[edges[i][1]]++
 	}
-
 	node_cnt := n
 	for node_cnt > 2 {
 		q := []int{}
-
 		for i := 0; i < n; i++ {
 			if degree[i] == 1 {
 				q = append(q, i)
@@ -80,7 +78,6 @@ func get_min_ht(n int, edges [][]int) []int {
 				node_cnt--
 			}
 		}
-
 		for len(q) > 0 {
 			curr := q[0]
 			q = q[1:]
@@ -89,7 +86,6 @@ func get_min_ht(n int, edges [][]int) []int {
 			}
 		}
 	}
-
 	ans := []int{}
 	for i := 0; i < n; i++ {
 		if degree[i] == 1 || degree[i] == 0 {
@@ -98,6 +94,8 @@ func get_min_ht(n int, edges [][]int) []int {
 	}
 	return ans
 }
+
+//----------------------------------using topological concept----------------------------------------------------
 
 func main() {
 	fmt.Println(get_min_ht(6, [][]int{
