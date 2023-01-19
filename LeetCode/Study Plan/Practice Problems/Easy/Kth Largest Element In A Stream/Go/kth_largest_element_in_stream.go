@@ -2,48 +2,40 @@ package main
 
 import (
 	"container/heap"
-	"fmt"
 )
 
-type I []int
+type M []int
 
-func (mh I) Len() int              { return len(mh) }
-func (mh I) Less(i, j int) bool    { return mh[i] < mh[j] }
-func (mh I) Swap(i, j int)         { mh[i], mh[j] = mh[j], mh[i] }
-func (mh *I) Push(val interface{}) { *mh = append(*mh, val.(int)) }
-func (mh *I) Pop() interface{} {
-	val := (*mh)[len(*mh)-1]
-	*mh = (*mh)[:len(*mh)-1]
+func (m M) Len() int              { return len(m) }
+func (m M) Swap(i, j int)         { m[i], m[j] = m[j], m[i] }
+func (m M) Less(i, j int) bool    { return m[i] < m[j] }
+func (m *M) Push(val interface{}) { *m = append(*m, val.(int)) }
+func (m *M) Pop() interface{} {
+	val := (*m)[len(*m)-1]
+	*m = (*m)[:len(*m)-1]
 	return val
 }
 
 type KthLargest struct {
-	max_heap *I
-	k        int
+	k  int
+	mh *M
 }
 
-func Constructor(k int, arr []int) KthLargest {
-	sort.Slice(arr, func(i, j int) bool {
-		return arr[i] > arr[j]
-	})
-	mh := &I{}
-	n := len(arr)
-	for i := 0; i < k && i < n; i++ {
-		heap.Push(mh, arr[i])
+func Constructor(k int, nums []int) KthLargest {
+	m := &M{}
+	for i := 0; i < len(nums); i++ {
+		heap.Push(m, nums[i])
 	}
-	return KthLargest{mh, k}
+	for m.Len() > k {
+		heap.Pop(m)
+	}
+	return KthLargest{k: k, mh: m}
 }
 
 func (this *KthLargest) Add(val int) int {
-	if this.max_heap.Len() < this.k {
-		heap.Push(this.max_heap, val)
-	} else if (*this.max_heap)[0] < val {
-		heap.Pop(this.max_heap)
-		heap.Push(this.max_heap, val)
+	heap.Push(this.mh, val)
+	for this.mh.Len() > this.k {
+		heap.Pop(this.mh)
 	}
-	return (*this.max_heap)[0]
-}
-
-func main() {
-
+	return (*this.mh)[0]
 }
