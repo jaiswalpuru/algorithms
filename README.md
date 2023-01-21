@@ -1,6 +1,9 @@
-## __ALGORITHMS/DATA STRUCTURES, AND SYSTEM DESIGN__ (WIP)
+## __ALGORITHMS/DATA STRUCTURES (WIP)
 
 ```sh
 Practice
-Systems Design -> WIP
+
+Some usefull resources
+* Introduction to algorithms : https://www.youtube.com/playlist?list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY
+* CLRS (Latest edition which is the current one when you are reading this.)
 ```
