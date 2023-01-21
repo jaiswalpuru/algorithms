@@ -16,6 +16,8 @@ func boruvkas(edges [][]int, n int) int {
 	mst := [][]int{}
 	mstCost := 0
 	cheapest := make([]int, n)
+	// loop through almost logV times.
+	//	for (int t = 1; t < size && mst.edges().size() < size - 1; t = t + t)
 	for len(mst) < n-1 {
 		//fill all the elements as -1
 		fill(&cheapest, -1)
