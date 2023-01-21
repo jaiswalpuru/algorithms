@@ -55,36 +55,41 @@ func (m *Max) Pop() interface{} {
 }
 
 type MedianFinder struct {
-	min_heap *Min
-	max_heap *Max
+	minHeap *Min
+	maxHeap *Max
 }
 
 func Constructor() MedianFinder {
-	max_heap := &Max{}
-	min_heap := &Min{}
-	return MedianFinder{max_heap: max_heap, min_heap: min_heap}
+	return MedianFinder{&Min{}, &Max{}}
 }
 
 func (this *MedianFinder) AddNum(num int) {
-	heap.Push(this.min_heap, num)
-	val := heap.Pop(this.min_heap).(int)
-	heap.Push(this.max_heap, val)
-	if this.min_heap.Len() < this.max_heap.Len() {
-		val = heap.Pop(this.max_heap).(int)
-		heap.Push(this.min_heap, val)
+	heap.Push(this.minHeap, num)
+	heap.Push(this.maxHeap, heap.Pop(this.minHeap).(int))
+	if this.minHeap.Len() < this.maxHeap.Len() {
+		heap.Push(this.minHeap, heap.Pop(this.maxHeap).(int))
 	}
 }
 
 func (this *MedianFinder) FindMedian() float64 {
-	if this.min_heap.Len() > this.max_heap.Len() {
-		val := heap.Pop(this.min_heap).(int)
-		heap.Push(this.min_heap, val)
-		return float64(val)
+	var median float64
+	if this.minHeap.Len() > this.maxHeap.Len() {
+		val := heap.Pop(this.minHeap).(int)
+		heap.Push(this.minHeap, val)
+		median = float64(val)
+	} else {
+		v1, v2 := heap.Pop(this.minHeap).(int), heap.Pop(this.maxHeap).(int)
+		median = float64(v1+v2) / 2
+		heap.Push(this.minHeap, v1)
+		heap.Push(this.maxHeap, v2)
 	}
-	v1, v2 := heap.Pop(this.min_heap).(int), heap.Pop(this.max_heap).(int)
-	heap.Push(this.min_heap, v1)
-	heap.Push(this.max_heap, v2)
-	return float64(v1+v2) / 2
+	return median
 }
 
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.AddNum(num);
+ * param_2 := obj.FindMedian();
+ */
 //---------------------using two heaps----------------------------
