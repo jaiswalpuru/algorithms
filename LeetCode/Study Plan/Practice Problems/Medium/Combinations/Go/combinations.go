@@ -2,24 +2,22 @@ package main
 
 import "fmt"
 
-func combination(n int, k int) [][]int {
+func combine(n int, k int) [][]int {
 	res := [][]int{}
-	_combination(n, k, &res, 1, []int{})
+	backtrack(n, k, 1, []int{}, &res)
 	return res
 }
 
-func _combination(n int, k int, res *[][]int, ind int, set []int) {
-	if ind == n+1 {
-		if k == len(set) {
-			*res = append(*res, append([]int{}, set...))
-		}
+func backtrack(n, k, start int, temp []int, res *[][]int) {
+	if k == 0 {
+		*res = append(*res, append([]int{}, temp...))
 		return
 	}
-
-	temp := append(set, ind)
-	_combination(n, k, res, ind+1, temp)
-	temp = temp[:len(temp)-1]
-	_combination(n, k, res, ind+1, temp)
+	for i := start; i <= n; i++ {
+		temp = append(temp, i)
+		backtrack(n, k-1, i+1, temp, res)
+		temp = temp[:len(temp)-1]
+	}
 }
 
 func main() {
