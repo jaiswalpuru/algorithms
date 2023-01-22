@@ -2,22 +2,21 @@ package main
 
 import "fmt"
 
-func subsets(arr []int) [][]int {
-	res := make([][]int, 0)
-	_subsets(arr, 0, &res, []int{})
+func subsets(nums []int) [][]int {
+	res := [][]int{}
+	backtrack(nums, 0, &res, []int{})
 	return res
 }
 
-func _subsets(arr []int, ind int, res *[][]int, set []int) {
-	if ind >= len(arr) {
+func backtrack(nums []int, ind int, res *[][]int, set []int) {
+	if ind >= len(nums) {
 		*res = append(*res, append([]int{}, set...))
 		return
 	}
-
-	temp := append(set, arr[ind])
-	_subsets(arr, ind+1, res, temp)
+	temp := append(set, nums[ind])
+	backtrack(nums, ind+1, res, temp)
 	temp = temp[:len(temp)-1]
-	_subsets(arr, ind+1, res, temp)
+	backtrack(nums, ind+1, res, temp)
 }
 
 func main() {
