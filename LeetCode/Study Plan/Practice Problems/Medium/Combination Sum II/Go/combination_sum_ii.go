@@ -1,34 +1,35 @@
 package main
 
-import "fmt"
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
-func combination_sum_II(arr []int, target int) [][]int {
+func combinationSum2(candidates []int, target int) [][]int {
 	res := [][]int{}
-	sort.Ints(arr)
-	_combination_sum_II(arr, &res, []int{}, target, 0)
+	sort.Ints(candidates)
+	backtrack(candidates, target, &res, []int{}, 0)
 	return res
 }
 
-func _combination_sum_II(arr []int, res *[][]int, set []int, target int, ind int) {
+func backtrack(candidates []int, target int, res *[][]int, temp []int, start int) {
 	if target == 0 {
-		*res = append(*res, append([]int{}, set...))
+		*res = append(*res, append([]int{}, temp...))
 		return
 	}
-
-	for i:=ind;i<len(arr);i++{
-		if i>ind && arr[i] == arr[i-1] {
+	for i := start; i < len(candidates); i++ {
+		if i > start && candidates[i] == candidates[i-1] {
 			continue
 		}
-
-		if arr[i] <= target {
-			temp := append(set, arr[i])
-			_combination_sum_II(arr, res, temp, target-arr[i], i+1)
-			temp = temp[:len(temp)-1]
+		if candidates[i] > target {
+			continue
 		}
+		temp = append(temp, candidates[i])
+		backtrack(candidates, target-candidates[i], res, temp, i+1)
+		temp = temp[:len(temp)-1]
 	}
 }
 
 func main() {
-	fmt.Println(combination_sum_II([]int{10,1,2,7,6,1,5}, 8))
+	fmt.Println(combinationSum2([]int{10, 1, 2, 7, 6, 1, 5}, 8))
 }
