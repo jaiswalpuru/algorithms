@@ -3,7 +3,6 @@ package main
 import (
 	"container/heap"
 	"fmt"
-	"math"
 )
 
 /*
@@ -29,7 +28,7 @@ func (m *P) Pop() interface{} {
 func dijkstra(g map[int][]Pair, src, n int) []int {
 	dis := make([]int, n+1)
 	for i := 0; i < n+1; i++ {
-		dis[i] = math.MaxInt64
+		dis[i] = int(1e7)
 	}
 	dis[src] = 0
 	dis[0] = -1
