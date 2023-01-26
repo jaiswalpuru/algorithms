@@ -7,34 +7,33 @@ import (
 )
 
 //-----------------------using bellman ford---------------------
-func cheapest_flights_within_k_stops_bellmand(n int, flights [][]int, src, dst, k int) int {
-	if src == dst {
-		return 0
-	}
-	prev := make([]int, n)
-	curr := make([]int, n)
+func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
+	currDis := make([]int, n)
+	prevDis := make([]int, n)
 	for i := 0; i < n; i++ {
-		prev[i] = math.MaxInt64
-		curr[i] = math.MaxInt64
+		currDis[i] = int(1e7)
+		prevDis[i] = int(1e7)
 	}
-	prev[src] = 0
-	for i := 0; i < k+1; i++ {
-		curr[src] = 0
+	prevDis[src] = 0
+	// as we need to find the cheapest flights within k stops
+	// so we try to relax every edges atmost k times
+	for i := 0; i <= k; i++ {
+		currDis[src] = 0
 		for j := 0; j < len(flights); j++ {
 			from := flights[j][0]
 			to := flights[j][1]
 			cost := flights[j][2]
-			if prev[from] < math.MaxInt64 {
-				curr[to] = min(curr[to], prev[from]+cost)
+			if prevDis[from] < int(1e7) {
+				currDis[to] = min(currDis[to], prevDis[from]+cost)
 			}
 		}
-		prev = make([]int, n)
-		copy(prev, curr)
+		prevDis = make([]int, n)
+		copy(prevDis, currDis)
 	}
-	if curr[dst] == math.MaxInt64 {
+	if prevDis[dst] == int(1e7) {
 		return -1
 	}
-	return curr[dst]
+	return prevDis[dst]
 }
 
 //-----------------------using bellman ford---------------------
@@ -57,7 +56,7 @@ func (mh *P) Pop() interface{} {
 	return val
 }
 
-func make_graph(flights [][]int) map[int][]Pair {
+func makeGraph(flights [][]int) map[int][]Pair {
 	n := len(flights)
 	graph := make(map[int][]Pair)
 	for i := 0; i < n; i++ {
@@ -66,8 +65,8 @@ func make_graph(flights [][]int) map[int][]Pair {
 	return graph
 }
 
-func cheapest_flights(n int, flights [][]int, src, dst, k int) int {
-	graph := make_graph(flights)
+func findCheapestPriceDijkstra(n int, flights [][]int, src, dst, k int) int {
+	graph := makeGraph(flights)
 
 	mh := &P{}
 	heap.Push(mh, Pair{next: src, weight: 0, stops: 0})
@@ -115,7 +114,7 @@ func min(a, b int) int {
 }
 
 func main() {
-	fmt.Println(cheapest_flights_within_k_stops_bellmand(4, [][]int{
+	fmt.Println(findCheapestPrice(4, [][]int{
 		{0, 1, 1},
 		{0, 2, 5},
 		{1, 2, 1},
