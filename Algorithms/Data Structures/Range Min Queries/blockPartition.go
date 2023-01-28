@@ -31,7 +31,7 @@ func rangeMinQuery(nums []int, queries [][]int) {
 			minVal = min(minVal, block[k])
 		}
 		//now get the values for block lBlock and r Block
-		if l == lBlock*b && r > (lBlock*b-1) {
+		if l == lBlock*b && r >= (lBlock*b+b) {
 			minVal = min(minVal, block[lBlock])
 		} else {
 			for j := l; j < min((lBlock*b+b), r+1); j++ {
@@ -64,7 +64,7 @@ func min(a, b int) int {
 }
 
 func main() {
-	nums := []int{6, 32, 58, 24, 94, 86, 16, 2, 99, 28, 39, 40, 64, 47, 70, 13, 12}
-	queries := [][]int{{1, 14}, {0, 7}, {0, 1}, {1, 3}, {15, 16}}
+	nums := []int{6, 32, 58, 24, 94, 86, 16, 2, 99, 28, 39, 40, 64, 47, 70, 13, 10}
+	queries := [][]int{{15, 15}}
 	rangeMinQuery(nums, queries)
 }
