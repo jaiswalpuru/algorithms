@@ -18,10 +18,8 @@ func rangeMinQuery(nums []int, queries [][]int) {
 	}
 	//now start filling the adjacent elements
 	for i := 0; i < n; i++ {
-		for j := 0; j < n; j++ {
-			if j > i {
-				table[i][j] = min(table[i][j-1], nums[j])
-			}
+		for j := i + 1; j < n; j++ {
+			table[i][j] = min(table[i][j-1], nums[j])
 		}
 	}
 
