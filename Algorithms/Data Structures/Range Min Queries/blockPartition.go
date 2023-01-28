@@ -14,10 +14,10 @@ import (
 
 func rangeMinQuery(nums []int, queries [][]int) {
 	block := []int{}
-	b := int(math.Sqrt(float64(len(nums))))
+	b := int(math.Sqrt(float64(len(nums)-1))) + 1
 	for i := 0; i < len(nums); i += b {
 		minVal := int(1e7)
-		for j := i; j < i+b; j++ {
+		for j := i; j < min(i+b, len(nums)); j++ {
 			minVal = min(minVal, nums[j])
 		}
 		block = append(block, minVal)
@@ -64,7 +64,7 @@ func min(a, b int) int {
 }
 
 func main() {
-	nums := []int{6, 32, 58, 24, 94, 86, 16, 2, 99, 28, 39, 40, 64, 47, 70, 13}
-	queries := [][]int{{1, 14}, {0, 7}, {0, 1}, {1, 3}}
+	nums := []int{6, 32, 58, 24, 94, 86, 16, 2, 99, 28, 39, 40, 64, 47, 70, 13, 12}
+	queries := [][]int{{1, 14}, {0, 7}, {0, 1}, {1, 3}, {15, 16}}
 	rangeMinQuery(nums, queries)
 }
