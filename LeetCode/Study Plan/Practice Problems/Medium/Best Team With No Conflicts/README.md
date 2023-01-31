@@ -29,6 +29,6 @@ Constraints:
 
 1 <= scores.length, ages.length <= 1000
 scores.length == ages.length
-1 <= scores[i] <= 106
+1 <= scores[i] <= 10^6
 1 <= ages[i] <= 1000
 ```
