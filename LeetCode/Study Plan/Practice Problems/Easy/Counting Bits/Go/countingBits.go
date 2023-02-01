@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func counting_bits(n int) []int {
+func countingBits(n int) []int {
 	arr := make([]int, n+1)
 	arr[0] = 0
 
@@ -21,5 +21,5 @@ func counting_bits(n int) []int {
 }
 
 func main() {
-	fmt.Println(counting_bits(2))
+	fmt.Println(countingBits(2))
 }
