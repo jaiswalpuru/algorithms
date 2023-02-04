@@ -7,7 +7,7 @@ class Solution {
         
         powers2[0] = 1;
         for (int i=1; i<size; i++)
-            powers2[i] = (powers2[i-1]*2)%mod;
+            powers2[i] = (powers2[i-1]<<1)%mod;
         
         int left = 0, right = size-1;
         int res = 0;
