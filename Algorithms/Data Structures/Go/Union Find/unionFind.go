@@ -15,7 +15,7 @@ import "fmt"
 */
 
 //this function returns the parent of each node
-func union_find(edges [][]int, n int) []int {
+func unionFind(edges [][]int, n int) []int {
 	parent := make([]int, n)
 	size := make([]int, n)
 	for i := 0; i < n; i++ {
@@ -56,5 +56,5 @@ func main() {
 	edges := [][]int{
 		{0, 1}, {1, 2}, {3, 4},
 	}
-	fmt.Println(union_find(edges, 5))
+	fmt.Println(unionFind(edges, 5))
 }
