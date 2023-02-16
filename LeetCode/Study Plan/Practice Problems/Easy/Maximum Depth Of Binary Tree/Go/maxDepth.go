@@ -10,7 +10,7 @@ type TreeNode struct {
 
 func New(val int) *TreeNode { return &TreeNode{Val: val, Left: nil, Right: nil} }
 
-func max_depth(root *TreeNode) int {
+func maxDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
@@ -42,5 +42,5 @@ func main() {
 	root.Right = New(20)
 	root.Right.Right = New(7)
 	root.Right.Left = New(15)
-	fmt.Println(max_depth(root))
+	fmt.Println(maxDepth(root))
 }
