@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 //---------------------------brute force------------------------------
-func songs_with_duration_divisible_by_60(arr []int) int {
+func songsWithDurationDivisibleBy60Brute(arr []int) int {
 	cnt := 0
 	n := len(arr)
 	for i := 0; i < n; i++ {
@@ -19,25 +19,27 @@ func songs_with_duration_divisible_by_60(arr []int) int {
 //---------------------------brute force------------------------------
 
 //----------------------------a better approach using hash_map-----------------
-func songs_with_duration_divisible_by_60_eff(arr []int) int {
-	hash_map := make(map[int]int)
-	n := len(arr)
-	cnt := 0
-	for i := 0; i < n; i++ {
-		if arr[i]%60 == 0 {
-			cnt += hash_map[0]
+func numPairsDivisibleBy60(time []int) int {
+	remainders := make([]int, 60)
+	size := len(time)
+	pairs := 0
+
+	for i := 0; i < size; i++ {
+		if time[i]%60 == 0 {
+			pairs += remainders[0]
 		} else {
-			cnt += hash_map[60-arr[i]%60]
+			pairs += remainders[60-time[i]%60]
 		}
-		hash_map[arr[i]%60]++
+		remainders[time[i]%60]++
 	}
-	return cnt
+
+	return pairs
 }
 
 //----------------------------a better approach using hash_map-----------------
 
 func main() {
-	fmt.Println(songs_with_duration_divisible_by_60([]int{30, 20, 150, 100, 40}))
+	fmt.Println(numPairsDivisibleBy60([]int{30, 20, 150, 100, 40}))
 }
 
 //purujaiswal12#
