@@ -10,7 +10,7 @@ type TreeNode struct {
 
 func New(val int) *TreeNode { return &TreeNode{Val: val, Right: nil, Left: nil} }
 
-func zig_zag(root *TreeNode) [][]int {
+func zigzagLevelOrder(root *TreeNode) [][]int {
 	if root == nil {
 		return nil
 	}
@@ -53,5 +53,5 @@ func main() {
 	root.Right = New(20)
 	root.Right.Left = New(15)
 	root.Right.Right = New(7)
-	fmt.Println(zig_zag(root))
+	fmt.Println(zigzagLevelOrder(root))
 }
