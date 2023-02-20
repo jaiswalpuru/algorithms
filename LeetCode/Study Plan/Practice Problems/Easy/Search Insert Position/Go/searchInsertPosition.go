@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func search_insert_position(nums []int, target int) int {
+func searchInsert(nums []int, target int) int {
 	n := len(nums)
 
 	l, h, mid := 0, n-1, -1
@@ -20,5 +20,5 @@ func search_insert_position(nums []int, target int) int {
 }
 
 func main() {
-	fmt.Println(search_insert_position([]int{1, 3, 5, 6}, 5))
+	fmt.Println(searchInsert([]int{1, 3, 5, 6}, 5))
 }
