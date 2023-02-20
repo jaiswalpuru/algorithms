@@ -4,8 +4,11 @@
 
 Some usefull resources
 * Introduction to algorithms : https://www.youtube.com/playlist?list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY
+* Algorithms : https://www.youtube.com/@AlgorithmsLive
+* William Fiset Algorithms : https://www.youtube.com/@WilliamFiset-videos
 * CLRS (Latest edition whenever you are reading this)
-* Competitive Programming : 
+* Programming : 
+    • Leetcode : https://leetcode.com
     • CP Algorithms : https://cp-algorithms.com/
     • Top Coder algorithm articles
     • Codeforces : https://codeforces.com/blog/entry/57282
