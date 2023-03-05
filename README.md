@@ -2,6 +2,7 @@ Some usefull resources
 * [Introduction to algorithms](https://www.youtube.com/playlist?list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY)
 * [Algorithms](https://www.youtube.com/@AlgorithmsLive)
 * [William Fiset Algorithms](https://www.youtube.com/@WilliamFiset-videos)
+* [Advance Data Structures](http://ocw.mit.edu/6-851S12)
 
 * CLRS (Latest edition whenever you are reading this)
 * Programming : 
