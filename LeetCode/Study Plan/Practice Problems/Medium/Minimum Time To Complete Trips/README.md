@@ -30,6 +30,6 @@ So the minimum time needed to complete 1 trip is 2.
 
 Constraints:
 
-1 <= time.length <= 105
-1 <= time[i], totalTrips <= 107
+1 <= time.length <= 10^5
+1 <= time[i], totalTrips <= 10^7
 ```
