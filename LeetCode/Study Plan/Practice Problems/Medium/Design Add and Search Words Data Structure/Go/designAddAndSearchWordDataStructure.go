@@ -26,10 +26,10 @@ func (this *WordDictionary) AddWord(word string) {
 }
 
 func (this *WordDictionary) Search(word string) bool {
-	return _search(word, this.root)
+	return search(word, this.root)
 }
 
-func _search(word string, root *TrieNode) bool {
+func search(word string, root *TrieNode) bool {
 	for k, ch := range word {
 		if ch == '.' {
 			for i := 0; i < len(root.children); i++ {
