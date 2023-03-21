@@ -18,3 +18,5 @@ Some usefull resources
     - [Why (low + high) /2 is a bug in binary search, merge sort](https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html)
     - [Substring after Java6 is no longer O(1)](https://github.com/nkatre/Learning-Java/blob/master/Time%20Complexity%20of%20predefined%20methods%20in%20JAVA)
 
+- Design Patterns : 
+    - [Derek Banas playlist](https://www.youtube.com/playlist?list=PLF206E906175C7E07)
