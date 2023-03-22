@@ -1,6 +1,5 @@
 class Solution {
     public int[] asteroidCollision(int[] asteroids) {
-        int size = asteroids.length;
         Stack<Integer> s = new Stack<>();
 
         for (Integer aster : asteroids) {
