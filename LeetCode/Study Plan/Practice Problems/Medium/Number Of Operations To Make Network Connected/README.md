@@ -26,8 +26,8 @@ Explanation: There are not enough cables.
 
 Constraints:
 
-1 <= n <= 105
-1 <= connections.length <= min(n * (n - 1) / 2, 105)
+1 <= n <= 10^5
+1 <= connections.length <= min(n * (n - 1) / 2, 10^5)
 connections[i].length == 2
 0 <= ai, bi < n
 ai != bi

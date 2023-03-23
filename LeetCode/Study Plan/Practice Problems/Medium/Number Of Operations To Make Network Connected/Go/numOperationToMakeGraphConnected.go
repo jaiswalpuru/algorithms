@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func make_graph(edges [][]int) map[int][]int {
+func makeGraph(edges [][]int) map[int][]int {
 	n := len(edges)
 	g := make(map[int][]int)
 	for i := 0; i < n; i++ {
@@ -12,12 +12,12 @@ func make_graph(edges [][]int) map[int][]int {
 	return g
 }
 
-func make_connections(n int, connections [][]int) int {
+func makeConnections(n int, connections [][]int) int {
 	if n-1 > len(connections) {
 		return -1
 	}
 
-	graph := make_graph(connections)
+	graph := makeGraph(connections)
 	visited := make([]bool, n)
 	cnt := 0
 	for i := 0; i < n; i++ {
@@ -39,10 +39,10 @@ func dfs(node int, graph map[int][]int, visited *[]bool) {
 }
 
 func main() {
-	fmt.Println(make_connections(12, [][]int{
+	fmt.Println(makeConnections(12, [][]int{
 		{1, 5}, {1, 7}, {1, 2}, {1, 4}, {3, 7}, {4, 7}, {3, 5}, {0, 6}, {0, 1}, {0, 4}, {2, 6}, {0, 3}, {0, 2},
 	}))
-	fmt.Println(make_connections(6, [][]int{
+	fmt.Println(makeConnections(6, [][]int{
 		{0, 1}, {0, 2}, {0, 3}, {1, 2},
 	}))
 }
