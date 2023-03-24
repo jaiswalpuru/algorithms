@@ -31,7 +31,7 @@ Output: 0
 
 Constraints:
 
-2 <= n <= 5 * 104
+2 <= n <= 5 * 10^4
 connections.length == n - 1
 connections[i].length == 2
 0 <= ai, bi <= n - 1
