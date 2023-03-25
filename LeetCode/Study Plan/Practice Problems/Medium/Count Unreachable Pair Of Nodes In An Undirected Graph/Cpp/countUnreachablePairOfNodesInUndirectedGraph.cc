@@ -24,7 +24,7 @@ void dfs(int start, umi &graph, vb &visited, ll &cnt) {
         if (!visited[graph[start][i]]) dfs(graph[start][i], graph, visited, cnt);
 }
 
-ll count_unreachable_pair_of_nodes_in_undirected_graph(int n, vii &edges) {
+ll count_pairs(int n, vii &edges) {
     umi graph = make_graph(edges);
     vb visited(n);
     ll total = ((ll)n*(n-1))/2;
@@ -41,5 +41,5 @@ ll count_unreachable_pair_of_nodes_in_undirected_graph(int n, vii &edges) {
 
 int main() {
     vii edges{{0,1},{0,2}, {1,2}};
-    std::cout<<count_unreachable_pair_of_nodes_in_undirected_graph(3, edges)<<"\n";
+    std::cout<<count_pairs(3, edges)<<"\n";
 }

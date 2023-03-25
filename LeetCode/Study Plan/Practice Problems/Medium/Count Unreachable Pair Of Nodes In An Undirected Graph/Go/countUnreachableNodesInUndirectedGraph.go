@@ -2,9 +2,9 @@ package main
 
 import "fmt"
 
-func count_unreachable_nodes_in_undirected_graph(n int, g [][]int) int {
+func countPairs(n int, g [][]int) int {
 	visited := make([]bool, n)
-	graph := make_graph(g)
+	graph := makeGraph(g)
 	total_conn := (n * (n - 1)) / 2
 	for i := 0; i < n; i++ {
 		if !visited[i] {
@@ -26,7 +26,7 @@ func dfs(curr int, graph map[int][]int, cnt *int, visited *[]bool) {
 	}
 }
 
-func make_graph(edges [][]int) map[int][]int {
+func makeGraph(edges [][]int) map[int][]int {
 	graph := make(map[int][]int)
 	n := len(edges)
 	for i := 0; i < n; i++ {
@@ -37,7 +37,7 @@ func make_graph(edges [][]int) map[int][]int {
 }
 
 func main() {
-	fmt.Println(count_unreachable_nodes_in_undirected_graph(3, [][]int{
+	fmt.Println(countPairs(3, [][]int{
 		{0, 1}, {0, 2}, {1, 2},
 	}))
 }
