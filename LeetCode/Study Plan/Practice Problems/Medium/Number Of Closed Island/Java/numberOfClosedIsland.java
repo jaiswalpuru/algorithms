@@ -19,7 +19,7 @@ class Solution {
     }
 
     private boolean dfs(int[][] grid, int i, int j, boolean[][] visited) {
-        if (i==0 || j==0 || i==m-1 || j==n-1 || visited[i][j] || grid[i][j] == 1) return false;
+        if (i==0 || j==0 || i==m-1 || j==n-1 || visited[i][j]) return false;
 
         visited[i][j] = true;
         boolean ans = true;
