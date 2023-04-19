@@ -29,7 +29,7 @@ public class Employee implements Comparable<Employee> {
 
 	@Override
 	public int compareTo(Employee o1) {
-		return getId()- o1.getId();
+		return getId() - o1.getId();
 	}
 
 	@Override
