@@ -18,6 +18,6 @@ Output: [7,9,6,6,8,7,3,0,9,5]
 Constraints:
 
 The number of nodes in the list is n.
-1 <= k <= n <= 105
+1 <= k <= n <= 10^5
 0 <= Node.val <= 100
 ```
