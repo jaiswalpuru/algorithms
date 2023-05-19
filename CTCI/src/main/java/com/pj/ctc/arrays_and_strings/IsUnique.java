@@ -6,11 +6,12 @@ package com.pj.ctc.arrays_and_strings;
  */
 
 public class IsUnique {
-	public static void main(String[] args) {
-
-	}
-
 	public static boolean isUnique(String str) {
-		return false;
+		int[] chars = new int[128]; // here assuming 128 characters present in string.
+		for (char c : str.toCharArray()) {
+			chars[c]++;
+			if (chars[c] > 1) return false;
+		}
+		return true;
 	}
 }
