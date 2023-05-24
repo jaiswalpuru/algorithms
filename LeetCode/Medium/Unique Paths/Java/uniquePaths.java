@@ -1,21 +1,21 @@
 class Solution {
-    int m;
-    int n;
+    int[][] dp;
     public int uniquePaths(int m, int n) {
-        this.m = m;
-        this.n = n;
-        int[][] memo = new int[m][n];
-        for (int[] row : memo) Arrays.fill(row, -1);
-        return recur(0, 0, memo);
+        dp = new int[m][n];
+        for (int i=0; i<m; i++)
+            Arrays.fill(dp[i], -1);
+        
+        return recur(m-1, n-1);
     }
 
-    private int recur(int i, int j, int[][] memo) {
-        if (i == m-1 && j == n-1) return 1;
-        if (i+1 > m || j+1> n) return 0;
-        if (memo[i][j] != -1) return memo[i][j];
-        int up = recur(i+1, j, memo);
-        int right = recur(i, j+1, memo);
-        memo[i][j] = up+right;
-        return up+right;
+    private int recur(int m, int n) {
+        if (m == 0 && n == 0) return 1;
+        if (m < 0 || n < 0) return 0;
+        if (dp[m][n] != -1) return dp[m][n];
+
+        int up =  recur(m, n-1);
+        int left = recur(m-1, n);
+        dp[m][n] = up+left;
+        return dp[m][n];
     }
 }
