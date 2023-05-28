@@ -1,6 +1,6 @@
 package arrays_and_strings;
 
-import com.pj.ctc.arrays_and_strings.URLify;
+import com.pj.ctci.arrays_and_strings.URLify;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

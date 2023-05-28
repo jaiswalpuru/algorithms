@@ -1,4 +1,4 @@
-package com.pj.ctc.arrays_and_strings;
+package com.pj.ctci.arrays_and_strings;
 
 import java.util.Arrays;
 

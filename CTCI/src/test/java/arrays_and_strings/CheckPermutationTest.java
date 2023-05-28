@@ -1,6 +1,6 @@
 package arrays_and_strings;
 
-import com.pj.ctc.arrays_and_strings.CheckPermutation;
+import com.pj.ctci.arrays_and_strings.CheckPermutation;
 import org.junit.jupiter.api.Test;
 
 public class CheckPermutationTest {
