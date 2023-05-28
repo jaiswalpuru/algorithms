@@ -18,12 +18,28 @@ public class Main {
 		GenericMethodClass g2 = new GenericMethodClass();
 		System.out.println(g2.genericMethod("Here I am"));
 
-		//below is
-//		GenericClassTwo<String> obj = new GenericClassTwo<String>();
+		/*
+		*		GenericClassTwo<String> obj = new GenericClassTwo<String>();
+		* 	This is wrong as String is not a subclass of Number
+		 */
 		GenericClassTwo<Integer> n = new GenericClassTwo<>();
 
 		GenericClassThere<P> gp = new GenericClassThere<>();
 
+
+		GenericClassMultiple<Integer, String> gm = new GenericClassMultiple<>(1, "Here I am");
+		System.out.println(gm.d);
+		System.out.println(gm.q);
+
+	}
+}
+
+class GenericClassMultiple<T, P> {
+	T d;
+	P q;
+	public GenericClassMultiple(T a, P b){
+		this.d = a;
+		this.q = b;
 	}
 }
 
