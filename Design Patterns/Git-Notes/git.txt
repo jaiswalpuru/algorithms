@@ -1,0 +1,182 @@
+Git config
+
+// Have user many references but mostly : https://github.com/CyC2018/CS-Notes/blob/master/notes/Git.md#git-%E5%91%BD%E4%BB%A4%E4%B8%80%E8%A7%88
+
+To setup some variables before starting to work on local machine, such user name, password
+
+Update user name
+$ git config --global user.name "your name"
+$ git config --global user.email "email"
+
+
+
+git init : It will create a ".git" hidden folder, this is where git stores all the information
+        about the project.
+
+
+Centralized vs Distributed
+        
+        Git is a distributed version control system, and SVN is a centralized one.
+
+Centralized VC : Only one server has the copy of code.
+                 Centralized has security issues when the centralized server is down
+                 no one can work.
+                 It needs to be connected to the internet.
+                 It creates new branches which is equivalent to copying the complete code.
+
+Distributed VC : Everyone has complete copy of code.
+                 It does not require internet connection to work.
+                 It create new branches and merges the branches very quickly.
+                 
+
+Git's version library has temporary storage area -> Stage and final History version library.
+
+                       add            commiting
+                Files ------> Stage -------------> History
+
+                • git add files -> adds the file modification to the temporary staging area.
+                • git commit submits the changes in the temp storage area of current branch
+                • git reset -- files -> overwrite the temporary storage area with the changes on the current branch to undo
+                                last git add files
+                • git checkout -- files -> overwrite the working directory with changes in the temp storage area to undo the local changes.
+
+
+
+Staging area can be skipped and take the changes to the branch or submit the changes directly to the branch.
+
+                • git commit -a -> directly adds all the changes to the temporary storage area and executes the commit
+                • git checkout HEAD -- files -> take out the last modification which can be used for rollback
+
+
+
+Branch Implementation :
+                        • Use pointers to connect each commit into a timeline, with HEAD pointer pointing to current branch pointer.
+                        
+                        • - • - •
+                                |
+                                main
+                                |
+                                head
+
+
+                        • To create a new branch is to create a new pointer to the last node of timeline, and let the HEAD pointer point to
+                        the new branch, indicating that the new branch becomes current branch.
+                                
+                                head
+                                |
+                                dev
+                                |
+                        • - • - •
+                                |
+                                main
+
+
+                        • Each commit will move the current branch pointer while other pointer will not move.
+                        
+                                   head
+                                    |
+                                   dev
+                                    |
+                        • - • - • - •
+                                |
+                                main
+
+
+                        • Merging branches only needs to change the pointer.
+
+                        • conflict : when both branches modify the same file conflict occurs
+                                
+                                   head
+                                    |
+                                   dev
+                                    |
+                        • - • - • - •
+                                \
+                                  \
+                                    \
+                                     •
+                                     |
+                                     dev
+
+                        Git will use <<<<<<<, =========, >>>>>>>>> to mark the content of different
+                        branches, and only need to modify the conflicting changes
+
+                        <<<<<<< HEAD
+                        creating new branch is easy
+                        ========
+                        creating new branch is East
+                        >>>>>>>> feature1
+
+Fast Forward
+        "Fast forward merge" will directly point the master branch to the merged branch. 
+        Branch merging in this mode will lose the branch info and the branch info cannot 
+        be seen in the branch history.
+
+        "--no-ff" tag can be added to disable the fast forward mode when merging, and add "-m" tag to generate new commit
+        when merging.
+
+        $ git merge --no-ff -m "merging in no ff mode" dev
+
+
+Storage : 
+        After operation on a branch, if the modification has not been submitted 
+        to the branch, switch branches at this time, then
+        the new modification can also be seen on the other branch. 
+        This is because branches share workspace.
+
+        Use git stash to store the modifications of the current branch. At this time, all 
+        modifications in the current branch will be stored in the stack, which means the 
+        current branch is clean and it can be switched to another branch.
+
+        $ git stash
+        Saved the current working directory changes .........
+        To restore the changes back to the current branch
+        $ git stash apply
+
+
+SSH transport settings
+
+        The transmission between the Git repo and Github central repo is encrypted via ssh.
+        If there is no .ssh directory in the workspace, or there are no two files id_rsa and id_rsa.pub in the directory,
+        then it can be created using the below command.
+
+        $ ssh-keygen -t -rsa -C "email@example.com"
+
+Then copy the content of the public key id_rsa.pub to SSH keys in Github account settings.
+
+
+To get the .gitignore files based on the project : https://github.com/github/gitignore
+
+Refer : https://rogerdudler.github.io/git-guide/files/git_cheat_sheet.pdf
+
+Create and Clone :
+        1. git init (create new repository)
+        2. git clone /path/to/repo
+        3. git clone username@host:/path/to/repo
+
+
+Add and remove
+        1. git add <filename> ->  add changes to the temporary storage area.
+        2. git add * -> add all the changes to the temp storage area.
+        3. git rm <filename> -> remove/delete
+
+Commit and Synchronize
+        1. git commit -m "Commit message" -> commit changes
+        2. git push origin master -> push changes to remote repo
+        3. git remote add origin <server> -> connect local repo to remote repo
+        4. git pull -> update the local repo with remote changes.
+
+Branches
+        1. git checkout -b <branch name> -> creates a new branch 
+        2. git checkout master -> switch to master branch
+        3. git branch -d <branch name> -> delete the current branch
+        4. git push origin <branch> -> push the branch to remote
+
+Merge
+        1. git merge <branch> -> merge changes from another branch
+        2. git diff <src_branch> <dst_branch> -> see the difference between the two branches.
+
+Tagging
+        1. git tag <tag> <commitID> -> creates a tag
+        2. git log -> get GIT commit ID's and also can see the history
+
