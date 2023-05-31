@@ -180,3 +180,76 @@ Tagging
         1. git tag <tag> <commitID> -> creates a tag
         2. git log -> get GIT commit ID's and also can see the history
 
+
+Few terminologies : 
+        1. master / main -> default development branch
+        2. origin -> default upstream repository
+        3. HEAD -> current branch
+        4. HEAD^ -> parent of head
+        5. HEAD~4 -> great - great grandparent of head
+
+Few useful commands:
+
+        ** REVERT **
+        1. **** git resset --hard -> return to the last committed stage (cannot undo hard reset)
+        2. git revert HEAD -> revert the last commit
+        3. git revert $id -> revert to specific commit
+        4. git commit -a --amend -> fix the last commit
+        5. git checkout $id $file -> checkout $id version of the file
+        
+
+        ** BRANCH **
+        1. git checkout $id -> switch to $id version
+        2. git checkout $branch2 -> switch to branch2
+        3. git merge branch1 -> merge branch1 into bramch2
+        4. git branch $branch -> create branch named $branch based on HEAD
+        5. git checkout -b $new_branch $other -> creates a new branch based on other branch and switches to it.
+        6. git branch -d $branch -> delete $branch
+
+        ** UPDATE **
+        1. git fetch -> fetch the latest changes from origin (this does not merge them)
+        2. git pull -> git fetch + merge
+        3. git am -3 patch.mbox -> apply a patch that some sent you
+        (in case of conflict resolve and use -> git am --resolved)
+
+        ** Publish **
+        1. git commit -a -> commit all the local changes
+        2. git format-patch origin -> prepare a patch for other developers
+        3. git push -> push changes to origin
+        4. git tag v1.0 -> make a version/milestone
+
+        
+        ** Useful commands **
+
+        1. git biset start -> to start
+        2. git bisect good $id -> $id is the last working version
+        3. git bisect bad $id -> $id is a broken version
+
+        4. git bisect bad/good -> to mark it as good or bad
+        5. git bisect visualize -> launch gitk and mark it
+        6. git bisect reset -> once the process is completed.
+
+        ** Check errors and clean up repositories **
+        1. git fsck
+        2. git gc --prune
+
+        ** Searching the current directory for foo() function **
+        1. git grep "foo()"
+
+
+
+        ** Resolving merge conflicts **
+        1. git diff -> complete conflict diff
+        2. git diff --base $file -> against base file
+        3. git diff --ours $file -> against our file
+        4. git diff --theirs $file -> against other changes
+
+        ** To discard conflicting patch **
+        1. git reset --hard
+        2. git rebase --skip
+
+        ** After resolvig conflicting patch, merge with **
+        1. git add $conflicting_file
+        2. git rebase --continue
+
+
