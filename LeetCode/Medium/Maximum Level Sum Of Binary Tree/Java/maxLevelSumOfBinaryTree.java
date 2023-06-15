@@ -15,26 +15,26 @@
  */
 class Solution {
     public int maxLevelSum(TreeNode root) {
-        ArrayDeque<TreeNode> dq = new ArrayDeque<>();
-        dq.offer(root);
-        int maxSum = root.val;
-        int ans = 1;
-        int lvl = 1;
-        while (!dq.isEmpty()) {
-            int size = dq.size();
+        ArrayDeque<TreeNode> q = new ArrayDeque<>();
+        q.offer(root);
+        int lvl = 0;
+        int l = 0;
+        int sum = Integer.MIN_VALUE;
+        while (!q.isEmpty()) {
+            l++;
+            int size = q.size();
             int lvlSum = 0;
             for (int i=0; i<size; i++) {
-                TreeNode curr = dq.poll();
+                TreeNode curr = q.poll();
                 lvlSum += curr.val;
-                if (curr.left != null) dq.offer(curr.left);
-                if (curr.right != null) dq.offer(curr.right);
+                if (curr.left != null) q.offer(curr.left);
+                if (curr.right != null) q.offer(curr.right);
             }
-            if (maxSum < lvlSum) {
-                maxSum = lvlSum;
-                ans = lvl;
+            if (sum < lvlSum) {
+                sum = lvlSum;
+                lvl = l;
             }
-            lvl++;
         }
-        return ans;
+        return lvl;
     }
 }
