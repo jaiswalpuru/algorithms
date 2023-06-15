@@ -31,3 +31,24 @@ class Solution {
         return dp[i][j];
     }
 }
+
+
+//----------------------------------brute force----------------------------------------------------
+class Solution {
+    public int minDistance(String word1, String word2) {
+        return recur(word1, word2, 0, 0);
+    }
+
+    private int recur(String word1, String word2, int i, int j) {
+        if (i == word1.length()) return word2.length()-j;
+        if (j == word2.length()) return word1.length()-i;
+
+        if (i == word1.length() && j == word2.length()) return 0;
+
+        if (word1.charAt(i) == word2.charAt(j)) {
+            return recur(word1, word2, i+1, j+1);
+        } else {
+            return 1 + Math.min(recur(word1, word2, i+1, j), Math.min(recur(word1, word2, i+1, j+1), recur(word1, word2, i, j+1)));
+        }
+    }
+}
