@@ -1,49 +1,64 @@
-class LRUCache {
-
-    public class Node {
-        int key;
-        int val;
-        Node(int k, int v) {
-            key = k;
-            val = v;
-        }
+class ListNode {
+    int key;
+    int val;
+    ListNode next;
+    ListNode prev;
+    public ListNode(int key, int val) {
+        this.key = key;
+        this.val = val;
     }
+}
 
-    private final int capacity;
-    private Map<Integer, Node> map;
-    Deque<Node> dll;
-
+class LRUCache {
+    int cap;
+    Map<Integer, ListNode> map;
+    ListNode head;
+    ListNode tail;
     public LRUCache(int capacity) {
+        cap = capacity;
         map = new HashMap<>();
-        dll = new LinkedList<>();
-        this.capacity = capacity;
+        head = new ListNode(-1, -1);
+        tail = new ListNode(-1, -1);
+        head.next = tail;
+        tail.prev = head;
     }
     
     public int get(int key) {
-        if (map.containsKey(key)) {
-            Node ent = map.get(key);
-            dll.remove(ent);
-            dll.addFirst(ent);
-            return ent.val;
-        }
-        return -1;
+        if (!map.containsKey(key)) return -1;
+        ListNode node = map.get(key);
+        remove(node);
+        add(node);
+        return node.val;
     }
     
     public void put(int key, int value) {
         if (map.containsKey(key)) {
-            Node ent = map.get(key);
-            dll.remove(ent);
-            ent.val = value;
-            dll.addFirst(ent);
-        } else {
-            if (map.size() == capacity) {
-                Node ent = dll.removeLast();
-                map.remove(ent.key);
-            }
-            Node ent = new Node(key, value);
-            map.put(key, ent);
-            dll.addFirst(ent);
+            ListNode oldNode = map.get(key);
+            remove(oldNode);
         }
+
+        ListNode node = new ListNode(key, value);
+        map.put(key, node);
+        add(node);
+        
+        if (map.size() > cap) {
+            ListNode del = head.next;
+            remove(del);
+            map.remove(del.key);
+        }
+    }
+
+    private void add(ListNode node) {
+        ListNode prev = tail.prev;
+        prev.next = node;
+        node.prev = prev;
+        node.next = tail;
+        tail.prev = node;
+    }
+
+    private void remove(ListNode node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
     }
 }
 
@@ -52,7 +67,7 @@ class LRUCache {
  * LRUCache obj = new LRUCache(capacity);
  * int param_1 = obj.get(key);
  * obj.put(key,value);
- */
+ */    
 
 //a better approach
 class LRUCache extends LinkedHashMap<Integer, Integer> {
@@ -76,11 +91,3 @@ class LRUCache extends LinkedHashMap<Integer, Integer> {
         return size() > capacity;
     }
 }
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
- * int param_1 = obj.get(key);
- * obj.put(key,value);
- */
-
