@@ -1,19 +1,13 @@
 class Solution {
     public String convertToBase7(int num) {
-        if (num == 0) 
-            return "0";
-        
-        StringBuilder base7 = new StringBuilder();
-        boolean isNegative = num < 0;
-        num = Math.abs(num);
-        
+        if (num == 0) return "0";
+        boolean isNeg = num < 0;
+        if (isNeg) num *= -1;
+        StringBuilder sb = new StringBuilder();
         while(num > 0) {
-            base7.append(num%7);
-            num /= 7;
+            sb.append(num%7);
+            num = num/7;
         }
-        if (isNegative)
-            base7.append("-");
-        
-        return base7.reverse().toString();
+        return isNeg ? "-" + sb.reverse().toString() : sb.reverse().toString();
     }
 }
