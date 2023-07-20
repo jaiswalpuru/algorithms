@@ -15,7 +15,7 @@ class Solution {
 
         StringBuilder sb = new StringBuilder();
         while(num != 0) {
-            sb.append(map[num&15]);
+            sb.append(map[num&0xf]);
             num >>>= 4;
         }
         return sb.reverse().toString();
