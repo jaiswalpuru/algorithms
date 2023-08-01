@@ -14,29 +14,27 @@
  * }
  */
 class Solution {
-    static int good;
+    int good;
     public int goodNodes(TreeNode root) {
         good = 1;
-        recur(root, root.val);
+        _goodNodes(root, root.val);
         return good;
     }
 
-    private static void recur(TreeNode root, int val) {
-        if (root == null) {
-            return;
-        }
-        if (root.left != null && val <= root.left.val) {
+    private void _goodNodes(TreeNode root, int val) {
+        if (root == null) return;
+        if (root.left != null && root.left.val >= val) {
             good++;
-            recur(root.left, root.left.val);
+            _goodNodes(root.left, root.left.val);
         } else {
-            recur(root.left, val);
+            _goodNodes(root.left, val);
         }
 
-        if (root.right != null && val <= root.right.val) {
+        if (root.right != null && root.right.val >= val) {
             good++;
-            recur(root.right, root.right.val);
+            _goodNodes(root.right, root.right.val);
         } else {
-            recur(root.right, val);
+            _goodNodes(root.right, val);
         }
     }
 }
