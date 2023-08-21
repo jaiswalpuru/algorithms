@@ -1,10 +1,8 @@
 class Solution {
     public int minCostClimbingStairs(int[] cost) {
-        int[] dp1 = new int[cost.length];
-        int[] dp2 = new int[cost.length];
-        Arrays.fill(dp1, -1);
-        Arrays.fill(dp2, -1);
-        return Math.min(recur(cost, 0, dp1), recur(cost, 1, dp2));
+        int[] dp = new int[cost.length];
+        Arrays.fill(dp, -1);
+        return Math.min(recur(cost, 0, dp), recur(cost, 1, dp));
     }
 
     private int recur(int[] cost, int start, int[] dp) {
