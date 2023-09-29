@@ -1,5 +1,5 @@
-Screen command
-
+### Screen command
+```
 Refer : https://linuxize.com/post/how-to-use-linux-screen/
 
 Why ? : Situation where you are performing a long running task on remote machine and it somehow gets disconnected and work is lost.
@@ -52,3 +52,4 @@ Basic linux screen usage :
 2. Run the desired program
 3. Ctrl a + Ctrl d to detach from the screen session
 4. Retach the screen session by screen -r
+```
