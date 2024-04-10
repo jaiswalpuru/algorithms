@@ -13,8 +13,8 @@ typedef std::vector<std::pair<st, int>> vp;
 typedef std::set<int> si;
 typedef std::vector<int> vi;
 typedef std::map<st, vi> mp;
-typedef std::priority_queue<std::pair<double, std::pair<st, st>>, std::vector<std::pair<double, std::pair<st, st>>>, 
-        std::greater<std::pair<double, std::pair<st, st>>>> pq;
+typedef std::priority_queue<std::pair<double, std::pair<st, st>>> pq;
+   
 
 int get_common_users_size(vi a, vi b) {
     si visited;
@@ -45,15 +45,13 @@ vss most_similar_websites(vp &graph, int k) {
             double common = (double)get_common_users_size(g[sites[i]], g[sites[j]]);
             double score = common/(double)(g[sites[i]].size() + g[sites[j]].size() - (int)common);
             pri_q.push({score, {sites[i], sites[j]}});
-            if (pri_q.size() > k) {
-                pri_q.pop();
-            }
         }
     }
     
-    while (!pri_q.empty()) {
+    while (k > 0) {
         res.push_back(pri_q.top().second);
         pri_q.pop();
+        k--;
     }
 
     return res;
