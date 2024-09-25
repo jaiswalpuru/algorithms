@@ -32,7 +32,7 @@ public:
             ind = word[i] - '0';
             if (temp->children[ind] == nullptr) break;
             temp = temp->children[ind];
-            if (temp->ch == word[i]) len++;
+            len++
         }
         return len;
     }
