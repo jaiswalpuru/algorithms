@@ -19,7 +19,7 @@ int matrix_infectiono(vector<vector<int>> board) {
     vector<vector<int>> dir = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     while (!q.empty()) {
         int size = q.size();
-        time++;
+        bool process = false;
         for (int k = 0; k < size; k++) {
             auto p = q.front();
             q.pop();
@@ -33,11 +33,13 @@ int matrix_infectiono(vector<vector<int>> board) {
                 if (x >=0 && y >=0 && x < n && y < m && !vis[x][y] && board[x][y] == 1) {
                     board[x][y] = 2;
                     q.push({x, y});
+                    process = true;
                 }
             }
         }
+        if (process) time++;
     }
-    return time - 1;
+    return time;
 }
 
 
