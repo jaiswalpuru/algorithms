@@ -22,6 +22,8 @@ string next_alpha_seq(string s) {
     s[pivot] = s[right_succ];
     s[right_succ] = c;
 
+    reverse(s.begin() + pivot + 1, s.end());
+
     return s;
 }
 
