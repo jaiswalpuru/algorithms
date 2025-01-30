@@ -4,9 +4,9 @@ using namespace std;
 
 int binary_srch(vector<int>& arr, int val) {
     int l = 0;
-    int r = arr.size() - 1;
+    int r = arr.size();
 
-    while(l <= r) {
+    while(l < r) {
         int mid = l + (r - l) / 2;
         if (arr[mid] == val) return mid;
         if (arr[mid] > val) {
@@ -21,5 +21,7 @@ int binary_srch(vector<int>& arr, int val) {
 int main(int argc, char** argv) {
     vector<int> arr = {1, 3, 4, 9, 10, 12, 14, 17, 20};
     cout << binary_srch(arr, 3) << "\n";
+    vector<int> a = {1, -1};
+    cout << binary_srch(a, -1) << "\n";
     return 0;
 }
