@@ -17,7 +17,7 @@ int find_target(vector<int> arr, int target) {
                 l = mid + 1;
             }
         } else { 
-            if (arr[mid] < target && target <= arr[mid]) {
+            if (arr[mid] < target && target <= arr[r]) {
                 l = mid + 1;
             } else {
                 r = mid - 1;
