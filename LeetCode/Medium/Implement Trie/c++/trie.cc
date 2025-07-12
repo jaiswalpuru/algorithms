@@ -1,41 +1,44 @@
-class Node {
+class TrieNode {
 public:
-    unordered_map<char, Node*> children;
     bool is_word;
-    Node() : is_word(false) {}
+    unordered_map<char, TrieNode*> children;
+    TrieNode() : is_word(false) {} 
 };
 
 class Trie {
 public:
-    Node *node;
-    Trie() : node(new Node()) {}
+    TrieNode* root;
+    Trie() {
+        root = new TrieNode();
+    }
     
     void insert(string word) {
-        Node *t = node;
+        TrieNode* temp = this->root;
         for (char c : word) {
-            if (t->children.find(c) == t->children.end()) t->children[c] = new Node();
-            t = t->children[c];
+            if (temp->children.find(c) == temp->children.end()) {
+                temp->children[c] = new TrieNode();
+            }
+            temp = temp->children[c];
         }
-        t->is_word = true;
+        temp->is_word = true;
     }
     
     bool search(string word) {
-        Node *t = node;
+        TrieNode* temp = this->root;
         for (char c : word) {
-            if (t->children.find(c) == t->children.end()) return false;
-            t = t->children[c];
+            if (temp->children.find(c) == temp->children.end()) return false;
+            temp = temp->children[c];
         }
-        return t->is_word;
+        return temp->is_word;
     }
     
     bool startsWith(string prefix) {
-        Node *t = node;
-        int i = 0;
-        for (; i < prefix.length(); i++) {
-            if (t->children.find(prefix[i]) == t->children.end()) break;
-            t = t->children[prefix[i]];
+        TrieNode* temp = root;
+        for (char c : prefix) {
+            if (temp->children.find(c) == temp->children.end()) return false;
+            temp = temp->children[c];
         }
-        return i == prefix.length();
+        return temp->children.size() > 0 || temp->is_word;
     }
 };
 
