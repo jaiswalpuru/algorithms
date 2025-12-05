@@ -20,17 +20,26 @@ int solve() {
     int n = vec[0].size();
     int num_ways = 0;
     std::vector<std::vector<int>> dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {-1, -1}, {-1, 1}, {1, -1}};
-    for (int i = 0; i < vec.size(); i++) {
-        for (int j = 0; j < vec[i].size(); j++) {
-            if (vec[i][j] == '@') {
-                int rolls = 0;
-                for (int d = 0; d < 8; d++) {
-                    int x = dir[d][0] + i;
-                    int y = dir[d][1] + j;
-                    if (x >= m || y >= n || x < 0 || y < 0) continue;
-                    if (vec[x][y] == '@') rolls++;
+    bool can_be_removed = true;
+    while (can_be_removed) { 
+        can_be_removed = false;
+        for (int i = 0; i < vec.size(); i++) {
+            for (int j = 0; j < vec[i].size(); j++) {
+                if (vec[i][j] == '@') {
+                    int rolls = 0;
+                    for (int d = 0; d < 8; d++) {
+                        int x = dir[d][0] + i;
+                        int y = dir[d][1] + j;
+                        if (x >= m || y >= n || x < 0 || y < 0) continue;
+                        if (vec[x][y] == '@') rolls++;
+                    }
+                    if (rolls < 4) {
+                        num_ways++;
+                        can_be_removed = true;
+                        vec[i][j] = '.';
+                        break;
+                    }
                 }
-                if (rolls < 4) num_ways++;
             }
         }
     }
